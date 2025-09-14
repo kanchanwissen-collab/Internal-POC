@@ -76,7 +76,10 @@ async def delete_session(session_id: str):
         # Close the browser session if it exists
         browser_session = SESSION_ID_TO_BROWSER_SESSION.get(session_id)
         if browser_session:
-            await browser_session.close()
+            try:
+                await browser_session.stop()
+            except Exception as e:
+                print(f"Error stopping browser session: {e}")
             del SESSION_ID_TO_BROWSER_SESSION[session_id]
 
         # Clean up all session processes (Xvfb, x11vnc, websockify)
