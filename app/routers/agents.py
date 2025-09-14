@@ -28,6 +28,7 @@ async def create_agent(agent: AgentCreateRequest):
                         
                             )
         await agent.run()
+        
         return {"message": "Agent task completed successfully", "task": task, "session_id": session_id}
     except Exception as e:
         return {"error": str(e)}, 500
@@ -43,7 +44,7 @@ async def stop_agent(session_id: str):
             agent = SESSION_ID_TO_AGENT_MAP.get(session_id)
             if not agent:
                 return {"error": "Agent not found"}, 404
-            await agent.stop()
+            agent.stop()
             return {"message": f"Agent for session {session_id} stopped successfully"}
     except Exception as e:
         return {"error": str(e)}, 500
@@ -57,7 +58,7 @@ async def pause_agent(session_id: str):
             agent = SESSION_ID_TO_AGENT_MAP.get(session_id)
             if not agent:
                 return {"error": "Agent not found"}, 404
-            await agent.pause()
+            agent.pause()
             return {"message": f"Agent for session {session_id} paused successfully"}
     except Exception as e:
         return {"error": str(e)}, 500
@@ -72,7 +73,7 @@ async def resume_agent(session_id: str):
             agent = SESSION_ID_TO_AGENT_MAP.get(session_id)
             if not agent:
                 return {"error": "Agent not found"}, 404
-            await agent.resume()
+            agent.resume()
             return {"message": f"Agent for session {session_id} resumed successfully"}
     except Exception as e:
         return {"error": str(e)}, 500
@@ -86,7 +87,7 @@ async def get_agent_status(session_id: str):
             agent:Agent = SESSION_ID_TO_AGENT_MAP.get(session_id)
             if not agent:
                 return {"error": "Agent not found"}, 404
-            status = await agent.state
+            status = agent.state
             return {"session_id": session_id, "status": status}
     except Exception as e:
         return {"error": str(e)}, 500
