@@ -27,6 +27,7 @@ async def create_agent(agent: AgentCreateRequest):
 
                         
                             )
+        SESSION_ID_TO_AGENT_MAP[session_id] = agent
         await agent.run()
         
         return {"message": "Agent task completed successfully", "task": task, "session_id": session_id}
