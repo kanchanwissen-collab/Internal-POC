@@ -1,0 +1,107 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+  browser-use-serverless:
+    build: ./browser-use-serverless
+    container_name: browser-use-serverless
+    ports:
+      - "8080:8080"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - CAPSOLVER_API_KEY=${CAPSOLVER_API_KEY}
+      - REDIS_URL=redis://redis:6379/0
+      - REDIS_STREAM=browser_use_logs
+      - REDIS_STREAM_MAXLEN = "1000"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+    
+  planner:
+    build: ./planner-backend
+    container_name: planner
+    ports:
+      - "8001:8001"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MONGO_URI=mongodb://mongo:27017/unified_db
+      - MONGO_DB_NAME=unified_db
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/preauth
+      - DEBUG=True
+      - PROCESSOR_URL=http://localhost:8001/api/planner-preauth
+      - GOOGLE_CLOUD_PROJECT=Agent-AI-DEV
+      - PUBSUB_SUBSCRIPTION=agentic-platform-prior-auth-sub
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json #new addition
+    
+    
+    
+    networks:
+      - app-network
+  n8n:
+   
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL}
+      - DB_TYPE=${DB_TYPE}
+      - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST}
+      - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT}
+      - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE}
+      - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
+      - DB_POSTGRESDB_SCHEMA=${DB_POSTGRESDB_SCHEMA}
+      - N8N_SECRET_COOKIE=${N8N_SECRET_COOKIE}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_JWT_SECRET=${N8N_JWT_SECRET}
+      - N8N_SECRET_COOKIE=false
+    volumes:
+      - n8n-data:/home/node/.n8n
+    depends_on:
+      postgress:
+        condition: service_healthy
+    networks:
+      - app-network
+    
+  postgress:
+    image: postgres:latest
+    container_name: postgress
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+
+
+networks:
+  app-network:
+    driver: bridge
