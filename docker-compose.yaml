@@ -1,6 +1,8 @@
+version: "3.8"
+
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:7
     container_name: mongo
     ports:
       - "27017:27017"
@@ -8,23 +10,15 @@ services:
       - mongo-data:/data/db
     networks:
       - app-network
-  browser-use-serverless:
-    build: ./browser-use-serverless
-    container_name: browser-use-serverless
-    ports:
-      - "8080:8080"
-    environment:
-      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
-      - CAPSOLVER_API_KEY=${CAPSOLVER_API_KEY}
-      - REDIS_URL=redis://redis:6379/0
-      - REDIS_STREAM=browser_use_logs
-      - REDIS_STREAM_MAXLEN = "1000"
-    depends_on:
-      - redis
-    networks:
-      - app-network
+    command: mongod --quiet --logpath /dev/null
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   redis:
-    image: redis:latest
+    image: redis:7
     container_name: redis
     ports:
       - "6379:6379"
@@ -32,76 +26,140 @@ services:
       - redis-data:/data
     networks:
       - app-network
-    
-  planner:
-    build: ./planner-backend
-    container_name: planner
-    ports:
-      - "8001:8001"
-    depends_on:
-      mongo:
-        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
     environment:
-      - PYTHONUNBUFFERED=1
-      - MONGO_URI=mongodb://mongo:27017/unified_db
-      - MONGO_DB_NAME=unified_db
-      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/preauth
-      - DEBUG=True
-      - PROCESSOR_URL=http://localhost:8001/api/planner-preauth
-      - GOOGLE_CLOUD_PROJECT=Agent-AI-DEV
-      - PUBSUB_SUBSCRIPTION=agentic-platform-prior-auth-sub
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json #new addition
-    
-    
-    
-    networks:
-      - app-network
-  n8n:
-   
-    image: n8nio/n8n:latest
-    container_name: n8n
-    ports:
-      - "5678:5678"
-    environment:
-      - N8N_HOST=${N8N_HOST}
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL}
-      - DB_TYPE=${DB_TYPE}
-      - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST}
-      - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT}
-      - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE}
-      - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER}
-      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      - DB_POSTGRESDB_SCHEMA=${DB_POSTGRESDB_SCHEMA}
-      - N8N_SECRET_COOKIE=${N8N_SECRET_COOKIE}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
-      - N8N_JWT_SECRET=${N8N_JWT_SECRET}
-      - N8N_SECRET_COOKIE=false
-    volumes:
-      - n8n-data:/home/node/.n8n
-    depends_on:
-      postgress:
-        condition: service_healthy
-    networks:
-      - app-network
-    
-  postgress:
-    image: postgres:latest
-    container_name: postgress
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U n8n -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      # Base URLs (host values are fine if you open from your host browser)
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_EDITOR_BASE_URL=http://localhost:5678/
 
+      # Database: point to service DNS "postgres", not localhost
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=postgres
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=12345678
+      - DB_POSTGRESDB_SCHEMA=public
+
+      # Secrets (one value each; remove duplicates)
+      - N8N_SECRET_COOKIE=saljfd@8408wsjfdw03r-fsdf
+      - N8N_ENCRYPTION_KEY=3415267urejlkhfsk@lsadjf
+      - N8N_JWT_SECRET=asfdlj@u09384sljdffasdjf@_*$
+
+      # optional: silence future settings perms warning now
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      - n8n-data:/home/node/.n8n
+    networks:
+      - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  browser-use-serverless:
+    build:
+      context: ./browser-use-serverless
+      dockerfile: Dockerfile
+    image: salonigupta19/browser-use:v1
+    container_name: browser-use-serverless
+    ports:
+      - "8080:8080" # nginx → uvicorn (8000) inside; nginx listens on 8080
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - CAPSOLVER_API_KEY=${CAPSOLVER_API_KEY}
+      - REDIS_URL=redis://redis:6379/0
+      - VNC_BASE_URL=http://localhost:8080  # <-- change if not accessing from localhost
+      - REDIS_STREAM=browser_use_logs
+      - REDIS_STREAM_MAXLEN=1000   # <-- no stray spaces/quotes
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+    healthcheck:
+      # adjust if your app exposes /health via nginx
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health || curl -fsS http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  planner:
+    build:
+      context: ./planner-backend
+      dockerfile: Dockerfile
+    image: salonigupta19/planner:v1
+    container_name: planner
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=True
+
+      # Internal URLs: use service DNS names from inside the network
+      - MONGO_URI=mongodb://mongo:27017/unified_db
+      - MONGO_DB_NAME=unified_db
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/preauth
+      # If planner calls itself it can use http://planner:8001, but keep PROCESSOR_URL
+      # for external publishers if needed. If planner itself is the subscriber, you might not need this.
+      - PROCESSOR_URL=http://planner:8001/api/planner-preauth
+
+      # Pub/Sub (works locally only if you run an emulator or mount creds)
+      - GOOGLE_CLOUD_PROJECT=Agent-AI-DEV
+      - PUBSUB_SUBSCRIPTION=agentic-platform-prior-auth-sub
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json
+    networks:
+      - app-network
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      n8n:
+        condition: service_started
+    
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mongo-data:
+  redis-data:
+  n8n-data:
+  postgres-data:
