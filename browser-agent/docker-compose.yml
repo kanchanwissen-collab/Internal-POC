@@ -1,0 +1,36 @@
+services:
+  browser-use-app:
+    build: .
+    container_name: browser-use-serverless
+    ports:
+      - "8080:8080"  # Nginx port
+      - "8001:8000"  # FastAPI port (for debugging)
+      # VNC ports for direct access if needed
+      - "6080-6089:6080-6089"
+      # NoVNC web ports for direct access if needed
+      - "5080-5089:5080-5089"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - VNC_BASE_URL=http://localhost:8080
+      - DISPLAY=:99
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - browser_profiles:/tmp/browser_profiles
+      - downloads:/tmp/downloads
+    privileged: true
+    shm_size: 2gb
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  browser_profiles:
+    driver: local
+  downloads:
+    driver: local

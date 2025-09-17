@@ -1,0 +1,4 @@
+fastapi
+browser-use
+pydantic
+uvicorn
