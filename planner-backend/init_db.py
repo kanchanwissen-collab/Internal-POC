@@ -13,7 +13,7 @@ async def init_sample_data():
     print("🔄 Connecting to MongoDB...")
     
     # Connect to MongoDB
-    client = AsyncIOMotorClient("mongodb://host.docker.internal:27017")
+    client = AsyncIOMotorClient("mongodb://host.docker.internal:27018")
     db = client["unified_db"]
     
     try:

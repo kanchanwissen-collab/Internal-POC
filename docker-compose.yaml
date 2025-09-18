@@ -1,15 +1,112 @@
+version: "3.8"
+
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:7
     container_name: mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: unified_db   # unified DB
+    command: ["mongod","--quiet","--logpath","/dev/null","--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
     networks:
       - app-network
+    healthcheck:
+      test: |
+        mongosh --port 27017 --eval "
+        try {
+          rs.status();
+          print('Replica set already initialized');
+        } catch (err) {
+          if (err.message.includes('no replset config has been received')) {
+            print('Initializing replica set...');
+            rs.initiate({
+              _id: 'rs0',
+              members: [{
+                _id: 0,
+                host: 'mongo:27017'
+              }]
+            });
+            print('Replica set initialized');
+          }
+        }"
+      interval: 5s
+      timeout: 30s
+      start_period: 10s
+      retries: 30
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U n8n -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=34.60.81.78
+      - N8N_WEBHOOK_URL=http://34.60.81.78:5678/ 
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_EDITOR_BASE_URL=http://34.60.81.78:5678/
+      - N8N_SECURE_COOKIE=false
+      
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=postgres
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=12345678
+      - DB_POSTGRESDB_SCHEMA=public
+
+      - N8N_SECRET_COOKIE=saljfd@8408wsjfdw03r-fsdf
+      - N8N_ENCRYPTION_KEY=3415267urejlkhfsk@lsadjf
+      - N8N_JWT_SECRET=asfdlj@u09384sljdffasdjf@_*$
+
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      - n8n-data:/home/node/.n8n
+    networks:
+      - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   browser-use-serverless:
-    build: ./browser-use-serverless
+    image: salonigupta19/browser-use-serverless:v4
     container_name: browser-use-serverless
     ports:
       - "8080:8080"
@@ -18,90 +115,126 @@ services:
       - CAPSOLVER_API_KEY=${CAPSOLVER_API_KEY}
       - REDIS_URL=redis://redis:6379/0
       - REDIS_STREAM=browser_use_logs
-      - REDIS_STREAM_MAXLEN = "1000"
+      - REDIS_STREAM_MAXLEN=1000
+      - VNC_BASE_URL=http://34.60.81.78:8080
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     networks:
       - app-network
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    networks:
-      - app-network
-    
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health || curl -fsS http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
   planner:
-    build: ./planner-backend
+    image: salonigupta19/planner:v1
     container_name: planner
     ports:
       - "8001:8001"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEBUG=True
+
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=unified_db
+
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/preauth
+      - PROCESSOR_URL=http://planner:8001/api/planner-preauth
+
+      - GOOGLE_CLOUD_PROJECT=Agent-AI-DEV
+      - PUBSUB_SUBSCRIPTION=agentic-platform-prior-auth-sub
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json
+    networks:
+      - app-network
     depends_on:
       mongo:
         condition: service_healthy
-    environment:
-      - PYTHONUNBUFFERED=1
-      - MONGO_URI=mongodb://mongo:27017/unified_db
-      - MONGO_DB_NAME=unified_db
-      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/preauth
-      - DEBUG=True
-      - PROCESSOR_URL=http://localhost:8001/api/planner-preauth
-      - GOOGLE_CLOUD_PROJECT=Agent-AI-DEV
-      - PUBSUB_SUBSCRIPTION=agentic-platform-prior-auth-sub
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json #new addition
-    
-    
-    
-    networks:
-      - app-network
-  n8n:
-   
-    image: n8nio/n8n:latest
-    container_name: n8n
-    ports:
-      - "5678:5678"
-    environment:
-      - N8N_HOST=${N8N_HOST}
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL}
-      - DB_TYPE=${DB_TYPE}
-      - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST}
-      - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT}
-      - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE}
-      - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER}
-      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      - DB_POSTGRESDB_SCHEMA=${DB_POSTGRESDB_SCHEMA}
-      - N8N_SECRET_COOKIE=${N8N_SECRET_COOKIE}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
-      - N8N_JWT_SECRET=${N8N_JWT_SECRET}
-      - N8N_SECRET_COOKIE=false
-    volumes:
-      - n8n-data:/home/node/.n8n
-    depends_on:
-      postgress:
+      redis:
         condition: service_healthy
-    networks:
-      - app-network
-    
-  postgress:
-    image: postgres:latest
-    container_name: postgress
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      n8n:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  api_server:
+    image: salonigupta19/api-server:v1
+    container_name: api-server
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+        - "8000:8000"
+    environment:
+      - APP_NAME=Producer-Consumer Batch API
+      - APP_VERSION=1.0.0
+      - DEBUG=false
+      
+      - HOST=0.0.0.0
+      - PORT=8000
+      - RELOAD=false
+      
+      - API_V1_PREFIX=/api/v1
+      - BATCH_ENDPOINT_URL=http://api-server:8000/api/v1/batch/process
+      
+      - MONGODB_URL=mongodb://mongo:27017/unified_db?replicaSet=rs0
+      - MONGODB_DATABASE=unified_db
+      - MONGODB_BATCH_COLLECTION=batches
+      - MONGODB_ITEMS_COLLECTION=batch_items
+      
+      - MAX_BATCH_SIZE=1000
+      - BATCH_TIMEOUT_SECONDS=30
+      
+      - OUTBOX_POLL_INTERVAL_SECONDS=5
+      - OUTBOX_BATCH_SIZE=100
+      - ENABLE_OUTBOX_PROCESSOR=true
+      
+      - LOG_LEVEL=INFO
+      
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      
+      - GOOGLE_APPLICATION_CREDENTIALS=application_default_credentials.json
+      - GOOGLE_CLOUD_PROJECT=agent-ai-dev
+      - DATABASE_URL=mongodb://mongo:27017/unified_db?directConnection=true
+      - TOPIC_NAME=projects/agent-ai-dev/topics/agentic-platform-prior-auth
+      
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+        - app-network
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    image: salonigupta19/frontend:v2 
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/unified_db
+      - NEXT_PUBLIC_API_URL=http://34.60.81.78:8000
+      - NEXTAUTH_SECRET=your-secret-key-here
+      - NEXT_PUBLIC_SSE_SERVER_URL="http://34.60.81.78:8000/api/v1"
     networks:
       - app-network
-
-
+    depends_on:
+      mongo:
+        condition: service_healthy
+      api_server:
+        condition: service_started
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mongo-data:
+  redis-data:
+  n8n-data:
+  postgres-data:
