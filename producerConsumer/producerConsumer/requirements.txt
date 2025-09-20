@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+httpx
+python-multipart
+requests
+motor
+pymongo
+asyncio
+google-cloud-pubsub>=2.0.0
+pyjwt
+redis
+sse_starlette

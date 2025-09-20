@@ -1,0 +1,61 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+docs/
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.pytest_cache
+.mypy_cache
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Test files
+test_*.py
+tests/
+*_test.py
+
+# Generated files
+generated_batch_data.json

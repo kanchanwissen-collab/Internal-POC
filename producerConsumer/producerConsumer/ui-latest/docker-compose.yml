@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mongodb://mongo:27017/medical_assistant
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=your-secret-key-here
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    volumes:
+      - ./.env:/app/.env:ro  # Mount environment file if it exists
+
+  mongo:
+    image: mongo:7.0
+    restart: always
+    ports:
+      - "27019:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=medical_assistant
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,1110 @@
+2025-08-22 10:52:56,816 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 10:59:32,836 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 10:59:36,012 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:10:20,846 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 11:18:11,083 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:18:30,074 - app.api.producer - INFO - Received batch with 10 requests for forwarding
+2025-08-22 11:18:30,074 - app.services.producer_service - INFO - Sending batch with 10 requests to consumer
+2025-08-22 11:18:31,231 - app.api.consumer - INFO - Received batch with 10 requests for processing
+2025-08-22 11:18:31,234 - app.services.batch_service - INFO - Stored batch e70670ef57984ccd with 10 requests
+2025-08-22 11:18:31,234 - app.services.batch_service - INFO - Processed batch e70670ef57984ccd: 10 requests, 10 unique vendors, 0.26ms processing time
+2025-08-22 11:18:31,238 - app.services.producer_service - INFO - Batch sent successfully, batch_id: e70670ef57984ccd
+2025-08-22 11:19:40,093 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 11:19:42,377 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:21:34,713 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 11:21:36,665 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:22:12,606 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 11:22:14,675 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:22:23,778 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 11:22:25,819 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 11:22:50,944 - app.api.producer - INFO - Received batch with 100 requests for forwarding
+2025-08-22 11:22:50,945 - app.services.producer_service - INFO - Sending batch with 100 requests to consumer
+2025-08-22 11:22:51,836 - app.api.consumer - INFO - Received batch with 100 requests for processing
+2025-08-22 11:22:51,837 - app.services.batch_service - INFO - Stored batch df874390d1004b41 with 100 requests
+2025-08-22 11:22:51,838 - app.services.batch_service - INFO - Processed batch df874390d1004b41: 100 requests, 10 unique vendors, 0.44ms processing time
+2025-08-22 11:22:51,843 - app.services.producer_service - INFO - Batch sent successfully, batch_id: df874390d1004b41
+2025-08-22 11:23:54,225 - app.api.producer - INFO - Received batch with 100 requests for forwarding
+2025-08-22 11:23:54,225 - app.services.producer_service - INFO - Sending batch with 100 requests to consumer
+2025-08-22 11:23:55,052 - app.api.consumer - INFO - Received batch with 100 requests for processing
+2025-08-22 11:23:55,052 - app.services.batch_service - INFO - Stored batch 47474db26f2645a5 with 100 requests
+2025-08-22 11:23:55,053 - app.services.batch_service - INFO - Processed batch 47474db26f2645a5: 100 requests, 10 unique vendors, 0.31ms processing time
+2025-08-22 11:23:55,056 - app.services.producer_service - INFO - Batch sent successfully, batch_id: 47474db26f2645a5
+2025-08-22 11:25:05,897 - app.api.consumer - INFO - Received batch with 100 requests for processing
+2025-08-22 11:25:05,898 - app.services.batch_service - INFO - Stored batch 1e10f450231e4686 with 100 requests
+2025-08-22 11:25:05,898 - app.services.batch_service - INFO - Processed batch 1e10f450231e4686: 100 requests, 10 unique vendors, 0.12ms processing time
+2025-08-22 12:13:02,224 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:13:06,360 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:13:48,301 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:13:50,345 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:14:07,150 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:14:09,251 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:14:19,738 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:14:21,506 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:14:33,297 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:14:35,175 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:14:40,822 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:18:46,009 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:19:19,085 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 12:19:19,086 - app.services.batch_service - INFO - Stored batch 0520273745064b63 with 100 requests
+2025-08-22 12:19:19,087 - app.services.batch_service - INFO - Processed batch 0520273745064b63: 100 requests, 10 unique vendors, 0.44ms processing time
+2025-08-22 12:22:34,555 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:22:36,255 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:23:45,920 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 12:23:45,921 - app.services.batch_service - INFO - Stored batch a9a7551c40fd44eb with 100 requests
+2025-08-22 12:23:45,921 - app.services.batch_service - INFO - Processed batch a9a7551c40fd44eb: 100 requests, 10 unique vendors, 0.31ms processing time
+2025-08-22 12:42:02,248 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:42:05,991 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:42:10,176 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:42:12,057 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:43:01,840 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 12:43:03,797 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 12:44:07,336 - app.main - INFO - Shutting down Producer-Consumer Batch API
+2025-08-22 13:36:03,708 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 13:36:04,528 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-22 13:36:04,529 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017
+2025-08-22 13:36:04,529 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 13:36:04,542 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 13:37:04,058 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 13:37:04,073 - app.services.mongodb_service - ERROR - Failed to insert batch f14002622b3e49a4: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:37:04,074 - app.services.batch_service - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:37:04,074 - app.api.consumer - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:37:47,165 - app.main - INFO - Shutting down application...
+2025-08-22 13:37:47,173 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 13:37:47,173 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 13:43:11,111 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 13:43:11,169 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-22 13:43:11,169 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017
+2025-08-22 13:43:11,169 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 13:43:11,179 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 13:43:45,783 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 13:43:45,790 - app.services.mongodb_service - ERROR - Failed to insert batch 521d2f2b192e4a99: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:43:45,790 - app.services.batch_service - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:43:45,790 - app.api.consumer - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:44:38,411 - app.main - INFO - Shutting down application...
+2025-08-22 13:44:38,417 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 13:44:38,418 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 13:44:41,089 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 13:44:41,152 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-22 13:44:41,152 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017
+2025-08-22 13:44:41,152 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 13:44:41,165 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 13:46:43,725 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 13:46:43,735 - app.services.mongodb_service - ERROR - Failed to insert batch fc4a3a0fb1994adb: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:46:43,735 - app.services.batch_service - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:46:43,735 - app.api.consumer - ERROR - Error processing batch: Transaction numbers are only allowed on a replica set member or mongos, full error: {'ok': 0.0, 'errmsg': 'Transaction numbers are only allowed on a replica set member or mongos', 'code': 20, 'codeName': 'IllegalOperation'}
+2025-08-22 13:47:32,881 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 13:47:41,337 - app.main - INFO - Shutting down application...
+2025-08-22 13:47:41,342 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 13:47:41,344 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 14:21:43,995 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:22:14,306 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a82f9fe8d6c6b839ce5b8f, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:22:14,307 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:22:14,308 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:22:14,339 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:22:26,853 - app.api.consumer - INFO - Received batch with 100 JSON objects for processing
+2025-08-22 14:22:44,447 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a82f9fe8d6c6b839ce5b8f, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:22:56,955 - app.services.mongodb_service - ERROR - Failed to insert batch 0ddd36690dd24b68: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a82f9fe8d6c6b839ce5b8f, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:22:56,955 - app.services.batch_service - ERROR - Error processing batch: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a82f9fe8d6c6b839ce5b8f, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:22:56,955 - app.api.consumer - ERROR - Error processing batch: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a82f9fe8d6c6b839ce5b8f, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:23:12,438 - app.main - INFO - Shutting down application...
+2025-08-22 14:23:12,457 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 14:23:12,457 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 14:30:01,280 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:30:31,445 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83191c2beb0cd69e154cf, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:30:31,446 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:30:31,447 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:30:31,470 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:31:01,508 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83191c2beb0cd69e154cf, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:31:02,087 - app.main - INFO - Shutting down application...
+2025-08-22 14:31:02,093 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 14:31:02,094 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 14:31:05,087 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:31:35,291 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a831d1f09a98948c541a0e, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:31:35,291 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:31:35,291 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:31:35,304 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:32:05,508 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a831d1f09a98948c541a0e, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:32:40,562 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a831d1f09a98948c541a0e, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:33:15,660 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a831d1f09a98948c541a0e, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:33:48,980 - app.main - INFO - Shutting down application...
+2025-08-22 14:33:48,989 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 14:33:48,989 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 14:33:52,243 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:34:22,374 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a8327822db81af6f2d658c, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:34:22,375 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:34:22,375 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:34:22,389 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:34:52,476 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a8327822db81af6f2d658c, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:35:05,134 - app.main - INFO - Shutting down application...
+2025-08-22 14:35:05,146 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 14:35:05,148 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-22 14:35:11,563 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:35:41,904 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a832c752319fbba35558d9, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:35:41,905 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:35:41,905 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:35:41,920 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:36:15,702 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-22 14:36:45,920 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:36:45,920 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-08-22 14:36:45,921 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-22 14:36:45,934 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-22 14:37:16,073 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:37:51,167 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:38:26,332 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:39:01,415 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:39:36,574 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:40:11,690 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:40:46,795 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:41:21,874 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:41:57,071 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:42:32,163 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:43:07,225 - app.services.mongodb_service - ERROR - Failed to get next batch to process: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68a83307a5b7d22380c8644d, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-08-22 14:43:13,243 - app.main - INFO - Shutting down application...
+2025-08-22 14:43:13,262 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-22 14:43:13,263 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-25 16:23:22,683 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:23:23,207 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:23:23,208 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:23:23,209 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:23:23,210 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:23:23,211 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:23:23,212 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:23:23,212 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:24:12,902 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:24:12,923 - app.services.sequential_batch_service - INFO - Successfully ingested batch 1 with 1 requests from 1 vendors: {'UNKNOWN': 1}
+2025-08-25 16:24:12,938 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_1 to Pub/Sub simulation: msg_1_1_dc6676c5
+2025-08-25 16:24:12,948 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-25 16:24:13,299 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-25 16:24:13,463 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_1_dc6676c5 for batch 1, sequence 1, vendor EVICORE
+2025-08-25 16:28:53,713 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:28:53,723 - app.services.sequential_batch_service - INFO - Successfully ingested batch 2 with 1 requests from 1 vendors: {'UNKNOWN': 1}
+2025-08-25 16:28:53,750 - app.services.sequential_batch_service - INFO - Published request batch_2_seq_1 to Pub/Sub simulation: msg_2_1_779e91dd
+2025-08-25 16:28:53,758 - app.services.sequential_batch_service - INFO - Batch 2 committed - all requests processed
+2025-08-25 16:28:53,983 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-25 16:28:54,148 - app.services.sequential_consumer_service - INFO - Consumed message msg_2_1_779e91dd for batch 2, sequence 1, vendor EVICORE
+2025-08-25 16:30:17,611 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:30:17,679 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:30:17,679 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:30:17,680 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:30:17,680 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:30:17,681 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:30:17,681 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:30:17,681 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:30:32,262 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:30:32,283 - app.services.sequential_batch_service - INFO - Successfully ingested batch 3 with 1 requests from 1 vendors: {'UNKNOWN': 1}
+2025-08-25 16:30:32,307 - app.services.sequential_batch_service - INFO - Published request batch_3_seq_1 to Pub/Sub simulation: msg_3_1_b236e689
+2025-08-25 16:30:32,317 - app.services.sequential_batch_service - INFO - Batch 3 committed - all requests processed
+2025-08-25 16:30:33,715 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-25 16:30:33,872 - app.services.sequential_consumer_service - INFO - Consumed message msg_3_1_b236e689 for batch 3, sequence 1, vendor EVICORE
+2025-08-25 16:32:11,541 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:32:11,609 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:32:11,609 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:32:11,610 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:32:11,613 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:32:11,614 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:32:11,616 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:32:11,617 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:32:40,052 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:40,079 - app.services.sequential_batch_service - INFO - Successfully ingested batch 4 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:40,108 - app.services.sequential_batch_service - INFO - Published request batch_4_seq_1 to Pub/Sub simulation: msg_4_1_78c11451
+2025-08-25 16:32:40,117 - app.services.sequential_batch_service - INFO - Batch 4 committed - all requests processed
+2025-08-25 16:32:41,687 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-25 16:32:41,856 - app.services.sequential_consumer_service - INFO - Consumed message msg_4_1_78c11451 for batch 4, sequence 1, vendor EVICORE
+2025-08-25 16:32:50,050 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:50,058 - app.services.sequential_batch_service - INFO - Successfully ingested batch 5 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:50,085 - app.services.sequential_batch_service - INFO - Published request batch_5_seq_1 to Pub/Sub simulation: msg_5_1_78a94cc4
+2025-08-25 16:32:50,095 - app.services.sequential_batch_service - INFO - Batch 5 committed - all requests processed
+2025-08-25 16:32:50,222 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:50,233 - app.services.sequential_batch_service - INFO - Successfully ingested batch 6 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:50,273 - app.services.sequential_batch_service - INFO - Published request batch_6_seq_1 to Pub/Sub simulation: msg_6_1_2279b133
+2025-08-25 16:32:50,283 - app.services.sequential_batch_service - INFO - Batch 6 committed - all requests processed
+2025-08-25 16:32:50,406 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:50,415 - app.services.sequential_batch_service - INFO - Successfully ingested batch 7 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:50,439 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_1 to Pub/Sub simulation: msg_7_1_cbf34976
+2025-08-25 16:32:50,451 - app.services.sequential_batch_service - INFO - Batch 7 committed - all requests processed
+2025-08-25 16:32:50,585 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:50,592 - app.services.sequential_batch_service - INFO - Successfully ingested batch 8 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:50,607 - app.services.sequential_batch_service - INFO - Published request batch_8_seq_1 to Pub/Sub simulation: msg_8_1_01084fad
+2025-08-25 16:32:50,617 - app.services.sequential_batch_service - INFO - Batch 8 committed - all requests processed
+2025-08-25 16:32:50,827 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:50,843 - app.services.sequential_batch_service - INFO - Successfully ingested batch 9 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:50,877 - app.services.sequential_batch_service - INFO - Published request batch_9_seq_1 to Pub/Sub simulation: msg_9_1_2fc68795
+2025-08-25 16:32:50,889 - app.services.sequential_batch_service - INFO - Batch 9 committed - all requests processed
+2025-08-25 16:32:51,031 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:51,047 - app.services.sequential_batch_service - INFO - Successfully ingested batch 10 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:51,082 - app.services.sequential_batch_service - INFO - Published request batch_10_seq_1 to Pub/Sub simulation: msg_10_1_2beb8b36
+2025-08-25 16:32:51,095 - app.services.sequential_batch_service - INFO - Batch 10 committed - all requests processed
+2025-08-25 16:32:51,215 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-25 16:32:51,224 - app.services.sequential_batch_service - INFO - Successfully ingested batch 11 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-25 16:32:51,253 - app.services.sequential_batch_service - INFO - Published request batch_11_seq_1 to Pub/Sub simulation: msg_11_1_e253341e
+2025-08-25 16:32:51,261 - app.services.sequential_batch_service - INFO - Batch 11 committed - all requests processed
+2025-08-25 16:32:51,879 - app.services.sequential_consumer_service - INFO - Found 7 published messages to consume
+2025-08-25 16:32:52,051 - app.services.sequential_consumer_service - INFO - Consumed message msg_5_1_78a94cc4 for batch 5, sequence 1, vendor EVICORE
+2025-08-25 16:32:52,224 - app.services.sequential_consumer_service - INFO - Consumed message msg_6_1_2279b133 for batch 6, sequence 1, vendor EVICORE
+2025-08-25 16:32:52,399 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_1_cbf34976 for batch 7, sequence 1, vendor EVICORE
+2025-08-25 16:32:52,569 - app.services.sequential_consumer_service - INFO - Consumed message msg_8_1_01084fad for batch 8, sequence 1, vendor EVICORE
+2025-08-25 16:32:52,742 - app.services.sequential_consumer_service - INFO - Consumed message msg_9_1_2fc68795 for batch 9, sequence 1, vendor EVICORE
+2025-08-25 16:32:52,914 - app.services.sequential_consumer_service - INFO - Consumed message msg_10_1_2beb8b36 for batch 10, sequence 1, vendor EVICORE
+2025-08-25 16:32:53,076 - app.services.sequential_consumer_service - INFO - Consumed message msg_11_1_e253341e for batch 11, sequence 1, vendor EVICORE
+2025-08-25 16:35:20,148 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:35:20,216 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:35:20,217 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:35:20,217 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:35:20,218 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:35:20,219 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:35:20,219 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:35:20,220 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:36:25,218 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:36:25,715 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:36:25,715 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:36:25,716 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:36:25,717 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:36:25,717 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:36:25,718 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:36:25,719 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:44:05,032 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:44:05,558 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:44:05,559 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:44:05,560 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:44:05,560 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:44:05,561 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:44:05,561 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:44:05,562 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-25 16:46:21,559 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-25 16:46:22,170 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-25 16:46:22,170 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-25 16:46:22,171 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-25 16:46:22,172 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-25 16:46:22,172 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-25 16:46:22,173 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-25 16:46:22,173 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 02:30:16,267 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 02:30:16,368 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 02:30:16,369 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 02:30:16,370 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 02:30:16,370 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 02:30:16,371 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 02:30:16,371 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 02:30:16,372 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 04:26:32,208 - app.main - INFO - Shutting down application...
+2025-08-26 04:26:32,210 - app.services.sequential_consumer_service - INFO - Consumer processing loop cancelled
+2025-08-26 04:26:32,211 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service stopped
+2025-08-26 04:26:32,212 - app.services.batch_aware_outbox_processor - INFO - 🔴 Batch-Aware Outbox Processor stopped
+2025-08-26 04:26:32,215 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-26 04:26:32,216 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-26 04:27:13,308 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 04:27:13,729 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 04:27:13,730 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 04:27:13,730 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 04:27:13,731 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 04:27:13,731 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 04:27:13,732 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 04:27:13,732 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 04:28:40,022 - app.api.sequential_batch - INFO - Processing complete batch flow with 1 requests
+2025-08-26 04:28:40,032 - app.services.sequential_batch_service - INFO - Successfully ingested batch 1 with 1 requests from 1 vendors: {'EVICORE': 1}
+2025-08-26 04:28:40,051 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_1 to Pub/Sub simulation: msg_1_1_e49fcc66
+2025-08-26 04:28:40,059 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-26 04:28:41,865 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-26 04:28:42,025 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_1_e49fcc66 for batch 1, sequence 1, vendor EVICORE
+2025-08-26 04:29:03,211 - app.api.sequential_batch - INFO - Getting status for batch 1
+2025-08-26 04:39:19,155 - app.main - INFO - Shutting down application...
+2025-08-26 04:39:19,156 - app.services.sequential_consumer_service - INFO - Consumer processing loop cancelled
+2025-08-26 04:39:19,157 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service stopped
+2025-08-26 04:39:19,157 - app.services.batch_aware_outbox_processor - INFO - 🔴 Batch-Aware Outbox Processor stopped
+2025-08-26 04:39:19,159 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-26 04:39:19,160 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-26 04:58:21,173 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 04:58:21,640 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 04:58:21,640 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 04:58:21,641 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 04:58:21,642 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 04:58:21,642 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 04:58:21,643 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 04:58:21,643 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 05:00:28,473 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_1 to Pub/Sub simulation: msg_1_1_66077ddb
+2025-08-26 05:00:28,485 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-26 05:00:29,820 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-26 05:00:29,979 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_1_66077ddb for batch 1, sequence 1, vendor EVICORE
+2025-08-26 06:16:30,468 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 06:16:30,928 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 06:16:30,929 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 06:16:30,929 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 06:16:30,929 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 06:16:30,930 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 06:16:30,930 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 06:16:30,930 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 06:16:43,086 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_1 to Pub/Sub simulation: msg_1_1_6ffa9d60
+2025-08-26 06:16:43,093 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-26 06:16:44,955 - app.services.sequential_consumer_service - INFO - Found 1 published messages to consume
+2025-08-26 06:16:45,126 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_1_6ffa9d60 for batch 1, sequence 1, vendor EVICORE
+2025-08-26 06:16:48,504 - app.services.sequential_batch_service - INFO - Published request batch_2_seq_1 to Pub/Sub simulation: msg_2_1_482beb13
+2025-08-26 06:16:48,515 - app.services.sequential_batch_service - INFO - Batch 2 committed - all requests processed
+2025-08-26 06:16:48,630 - app.services.sequential_batch_service - INFO - Published request batch_3_seq_1 to Pub/Sub simulation: msg_3_1_2175f7a8
+2025-08-26 06:16:48,638 - app.services.sequential_batch_service - INFO - Batch 3 committed - all requests processed
+2025-08-26 06:16:48,868 - app.services.sequential_batch_service - INFO - Published request batch_4_seq_1 to Pub/Sub simulation: msg_4_1_e3e50c23
+2025-08-26 06:16:48,881 - app.services.sequential_batch_service - INFO - Batch 4 committed - all requests processed
+2025-08-26 06:16:49,133 - app.services.sequential_consumer_service - INFO - Found 3 published messages to consume
+2025-08-26 06:16:49,233 - app.services.sequential_batch_service - INFO - Published request batch_5_seq_1 to Pub/Sub simulation: msg_5_1_2f66ab95
+2025-08-26 06:16:49,246 - app.services.sequential_batch_service - INFO - Batch 5 committed - all requests processed
+2025-08-26 06:16:49,296 - app.services.sequential_consumer_service - INFO - Consumed message msg_2_1_482beb13 for batch 2, sequence 1, vendor EVICORE
+2025-08-26 06:16:49,395 - app.services.sequential_batch_service - INFO - Published request batch_6_seq_1 to Pub/Sub simulation: msg_6_1_74bd3d00
+2025-08-26 06:16:49,406 - app.services.sequential_batch_service - INFO - Batch 6 committed - all requests processed
+2025-08-26 06:16:49,459 - app.services.sequential_consumer_service - INFO - Consumed message msg_3_1_2175f7a8 for batch 3, sequence 1, vendor EVICORE
+2025-08-26 06:16:49,620 - app.services.sequential_consumer_service - INFO - Consumed message msg_4_1_e3e50c23 for batch 4, sequence 1, vendor EVICORE
+2025-08-26 06:16:51,626 - app.services.sequential_consumer_service - INFO - Found 2 published messages to consume
+2025-08-26 06:16:51,796 - app.services.sequential_consumer_service - INFO - Consumed message msg_5_1_2f66ab95 for batch 5, sequence 1, vendor EVICORE
+2025-08-26 06:16:51,956 - app.services.sequential_consumer_service - INFO - Consumed message msg_6_1_74bd3d00 for batch 6, sequence 1, vendor EVICORE
+2025-08-26 06:18:04,244 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_1 to Pub/Sub simulation: msg_7_1_c5dfb3dc
+2025-08-26 06:18:04,250 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_2 to Pub/Sub simulation: msg_7_2_3df74c7f
+2025-08-26 06:18:04,257 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_3 to Pub/Sub simulation: msg_7_3_cb48c0cd
+2025-08-26 06:18:04,264 - app.services.sequential_batch_service - INFO - Batch 7 committed - all requests processed
+2025-08-26 06:18:06,075 - app.services.sequential_consumer_service - INFO - Found 3 published messages to consume
+2025-08-26 06:18:06,234 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_1_c5dfb3dc for batch 7, sequence 1, vendor EVICORE
+2025-08-26 06:18:06,390 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_2_3df74c7f for batch 7, sequence 2, vendor EVICORE
+2025-08-26 06:18:06,549 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_3_cb48c0cd for batch 7, sequence 3, vendor EVICORE
+2025-08-26 07:25:17,929 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:25:18,395 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:25:18,395 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:25:18,395 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 07:25:18,396 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 07:25:18,396 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 07:25:18,397 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 07:25:18,397 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 07:25:37,348 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_1 to Pub/Sub simulation: msg_1_1_99f3a8da
+2025-08-26 07:25:37,355 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_2 to Pub/Sub simulation: msg_1_2_057e3db2
+2025-08-26 07:25:37,363 - app.services.sequential_batch_service - INFO - Published request batch_1_seq_3 to Pub/Sub simulation: msg_1_3_0db790a6
+2025-08-26 07:25:37,374 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-26 07:25:38,439 - app.services.sequential_consumer_service - INFO - Found 3 published messages to consume
+2025-08-26 07:25:38,596 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_1_99f3a8da for batch 1, sequence 1, vendor EVICORE
+2025-08-26 07:25:38,754 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_2_057e3db2 for batch 1, sequence 2, vendor EVICORE
+2025-08-26 07:25:38,912 - app.services.sequential_consumer_service - INFO - Consumed message msg_1_3_0db790a6 for batch 1, sequence 3, vendor EVICORE
+2025-08-26 07:28:59,839 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:28:59,891 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:28:59,891 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:28:59,892 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 07:28:59,892 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 07:28:59,893 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 07:28:59,893 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 07:28:59,894 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 07:29:23,332 - app.services.sequential_batch_service - INFO - Published request batch_2_seq_1 to Pub/Sub simulation: msg_2_1_c591593d
+2025-08-26 07:29:23,340 - app.services.sequential_batch_service - INFO - Published request batch_2_seq_2 to Pub/Sub simulation: msg_2_2_9ac3fa18
+2025-08-26 07:29:23,346 - app.services.sequential_batch_service - INFO - Published request batch_2_seq_3 to Pub/Sub simulation: msg_2_3_73f484d5
+2025-08-26 07:29:23,357 - app.services.sequential_batch_service - INFO - Batch 2 committed - all requests processed
+2025-08-26 07:29:23,938 - app.services.sequential_consumer_service - INFO - Found 3 published messages to consume
+2025-08-26 07:29:24,095 - app.services.sequential_consumer_service - INFO - Consumed message msg_2_1_c591593d for batch 2, sequence 1, vendor EVICORE
+2025-08-26 07:29:24,251 - app.services.sequential_consumer_service - INFO - Consumed message msg_2_2_9ac3fa18 for batch 2, sequence 2, vendor EVICORE
+2025-08-26 07:29:24,410 - app.services.sequential_consumer_service - INFO - Consumed message msg_2_3_73f484d5 for batch 2, sequence 3, vendor EVICORE
+2025-08-26 07:31:41,036 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:31:41,081 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:31:41,082 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:31:41,082 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 07:31:41,083 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 07:31:41,083 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 07:31:41,084 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 07:31:41,084 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 07:32:35,357 - app.services.sequential_batch_service - INFO - Published request batch_3_seq_1 to Pub/Sub simulation: msg_3_1_12013acd
+2025-08-26 07:32:35,363 - app.services.sequential_batch_service - INFO - Published request batch_3_seq_2 to Pub/Sub simulation: msg_3_2_8fb0660b
+2025-08-26 07:32:35,369 - app.services.sequential_batch_service - INFO - Published request batch_3_seq_3 to Pub/Sub simulation: msg_3_3_58630624
+2025-08-26 07:32:35,376 - app.services.sequential_batch_service - INFO - Batch 3 committed - all requests processed
+2025-08-26 07:32:35,838 - app.services.sequential_batch_service - INFO - Published request batch_4_seq_1 to Pub/Sub simulation: msg_4_1_1401d708
+2025-08-26 07:32:35,844 - app.services.sequential_batch_service - INFO - Published request batch_4_seq_2 to Pub/Sub simulation: msg_4_2_f182c07b
+2025-08-26 07:32:35,849 - app.services.sequential_batch_service - INFO - Published request batch_4_seq_3 to Pub/Sub simulation: msg_4_3_b90f0ab0
+2025-08-26 07:32:35,857 - app.services.sequential_batch_service - INFO - Batch 4 committed - all requests processed
+2025-08-26 07:32:36,064 - app.services.sequential_batch_service - INFO - Published request batch_5_seq_1 to Pub/Sub simulation: msg_5_1_de212f06
+2025-08-26 07:32:36,073 - app.services.sequential_batch_service - INFO - Published request batch_5_seq_2 to Pub/Sub simulation: msg_5_2_f9eec547
+2025-08-26 07:32:36,079 - app.services.sequential_batch_service - INFO - Published request batch_5_seq_3 to Pub/Sub simulation: msg_5_3_b86935b3
+2025-08-26 07:32:36,090 - app.services.sequential_batch_service - INFO - Batch 5 committed - all requests processed
+2025-08-26 07:32:36,396 - app.services.sequential_batch_service - INFO - Published request batch_6_seq_1 to Pub/Sub simulation: msg_6_1_3c16e734
+2025-08-26 07:32:36,406 - app.services.sequential_batch_service - INFO - Published request batch_6_seq_2 to Pub/Sub simulation: msg_6_2_217cb6ca
+2025-08-26 07:32:36,412 - app.services.sequential_batch_service - INFO - Published request batch_6_seq_3 to Pub/Sub simulation: msg_6_3_258ef0c4
+2025-08-26 07:32:36,421 - app.services.sequential_batch_service - INFO - Batch 6 committed - all requests processed
+2025-08-26 07:32:36,551 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_1 to Pub/Sub simulation: msg_7_1_b8fc60a9
+2025-08-26 07:32:36,560 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_2 to Pub/Sub simulation: msg_7_2_79497da0
+2025-08-26 07:32:36,567 - app.services.sequential_batch_service - INFO - Published request batch_7_seq_3 to Pub/Sub simulation: msg_7_3_4d18dece
+2025-08-26 07:32:36,575 - app.services.sequential_batch_service - INFO - Batch 7 committed - all requests processed
+2025-08-26 07:32:36,719 - app.services.sequential_batch_service - INFO - Published request batch_8_seq_1 to Pub/Sub simulation: msg_8_1_57621c60
+2025-08-26 07:32:36,725 - app.services.sequential_batch_service - INFO - Published request batch_8_seq_2 to Pub/Sub simulation: msg_8_2_0ede621c
+2025-08-26 07:32:36,735 - app.services.sequential_batch_service - INFO - Published request batch_8_seq_3 to Pub/Sub simulation: msg_8_3_3fbf5e7c
+2025-08-26 07:32:36,743 - app.services.sequential_batch_service - INFO - Batch 8 committed - all requests processed
+2025-08-26 07:32:36,885 - app.services.sequential_batch_service - INFO - Published request batch_9_seq_1 to Pub/Sub simulation: msg_9_1_416e7b24
+2025-08-26 07:32:36,891 - app.services.sequential_batch_service - INFO - Published request batch_9_seq_2 to Pub/Sub simulation: msg_9_2_95d7e4b8
+2025-08-26 07:32:36,902 - app.services.sequential_batch_service - INFO - Published request batch_9_seq_3 to Pub/Sub simulation: msg_9_3_ed5c3089
+2025-08-26 07:32:36,910 - app.services.sequential_batch_service - INFO - Batch 9 committed - all requests processed
+2025-08-26 07:32:37,068 - app.services.sequential_batch_service - INFO - Published request batch_10_seq_1 to Pub/Sub simulation: msg_10_1_d42edc8a
+2025-08-26 07:32:37,073 - app.services.sequential_batch_service - INFO - Published request batch_10_seq_2 to Pub/Sub simulation: msg_10_2_03fee4ec
+2025-08-26 07:32:37,079 - app.services.sequential_batch_service - INFO - Published request batch_10_seq_3 to Pub/Sub simulation: msg_10_3_36375479
+2025-08-26 07:32:37,087 - app.services.sequential_batch_service - INFO - Batch 10 committed - all requests processed
+2025-08-26 07:32:37,177 - app.services.sequential_consumer_service - INFO - Found 10 published messages to consume
+2025-08-26 07:32:37,243 - app.services.sequential_batch_service - INFO - Published request batch_11_seq_1 to Pub/Sub simulation: msg_11_1_085fa85c
+2025-08-26 07:32:37,252 - app.services.sequential_batch_service - INFO - Published request batch_11_seq_2 to Pub/Sub simulation: msg_11_2_8d5af623
+2025-08-26 07:32:37,258 - app.services.sequential_batch_service - INFO - Published request batch_11_seq_3 to Pub/Sub simulation: msg_11_3_f0641c10
+2025-08-26 07:32:37,267 - app.services.sequential_batch_service - INFO - Batch 11 committed - all requests processed
+2025-08-26 07:32:37,337 - app.services.sequential_consumer_service - INFO - Consumed message msg_3_1_12013acd for batch 3, sequence 1, vendor EVICORE
+2025-08-26 07:32:37,405 - app.services.sequential_batch_service - INFO - Published request batch_12_seq_1 to Pub/Sub simulation: msg_12_1_cf433799
+2025-08-26 07:32:37,413 - app.services.sequential_batch_service - INFO - Published request batch_12_seq_2 to Pub/Sub simulation: msg_12_2_ddf8958c
+2025-08-26 07:32:37,425 - app.services.sequential_batch_service - INFO - Published request batch_12_seq_3 to Pub/Sub simulation: msg_12_3_d86c98b4
+2025-08-26 07:32:37,431 - app.services.sequential_batch_service - INFO - Batch 12 committed - all requests processed
+2025-08-26 07:32:37,496 - app.services.sequential_consumer_service - INFO - Consumed message msg_3_2_8fb0660b for batch 3, sequence 2, vendor EVICORE
+2025-08-26 07:32:37,566 - app.services.sequential_batch_service - INFO - Published request batch_13_seq_1 to Pub/Sub simulation: msg_13_1_4ea24b17
+2025-08-26 07:32:37,572 - app.services.sequential_batch_service - INFO - Published request batch_13_seq_2 to Pub/Sub simulation: msg_13_2_458176a2
+2025-08-26 07:32:37,582 - app.services.sequential_batch_service - INFO - Published request batch_13_seq_3 to Pub/Sub simulation: msg_13_3_946499d0
+2025-08-26 07:32:37,591 - app.services.sequential_batch_service - INFO - Batch 13 committed - all requests processed
+2025-08-26 07:32:37,653 - app.services.sequential_consumer_service - INFO - Consumed message msg_3_3_58630624 for batch 3, sequence 3, vendor EVICORE
+2025-08-26 07:32:37,760 - app.services.sequential_batch_service - INFO - Published request batch_14_seq_1 to Pub/Sub simulation: msg_14_1_b2a804b7
+2025-08-26 07:32:37,767 - app.services.sequential_batch_service - INFO - Published request batch_14_seq_2 to Pub/Sub simulation: msg_14_2_b798f86d
+2025-08-26 07:32:37,776 - app.services.sequential_batch_service - INFO - Published request batch_14_seq_3 to Pub/Sub simulation: msg_14_3_aeb279b6
+2025-08-26 07:32:37,784 - app.services.sequential_batch_service - INFO - Batch 14 committed - all requests processed
+2025-08-26 07:32:37,811 - app.services.sequential_consumer_service - INFO - Consumed message msg_4_1_1401d708 for batch 4, sequence 1, vendor EVICORE
+2025-08-26 07:32:37,970 - app.services.sequential_consumer_service - INFO - Consumed message msg_4_2_f182c07b for batch 4, sequence 2, vendor EVICORE
+2025-08-26 07:32:37,992 - app.services.sequential_batch_service - INFO - Published request batch_15_seq_1 to Pub/Sub simulation: msg_15_1_61781b78
+2025-08-26 07:32:38,000 - app.services.sequential_batch_service - INFO - Published request batch_15_seq_2 to Pub/Sub simulation: msg_15_2_d40cee9a
+2025-08-26 07:32:38,007 - app.services.sequential_batch_service - INFO - Published request batch_15_seq_3 to Pub/Sub simulation: msg_15_3_8b973b49
+2025-08-26 07:32:38,014 - app.services.sequential_batch_service - INFO - Batch 15 committed - all requests processed
+2025-08-26 07:32:38,130 - app.services.sequential_consumer_service - INFO - Consumed message msg_4_3_b90f0ab0 for batch 4, sequence 3, vendor EVICORE
+2025-08-26 07:32:38,289 - app.services.sequential_consumer_service - INFO - Consumed message msg_5_1_de212f06 for batch 5, sequence 1, vendor EVICORE
+2025-08-26 07:32:38,445 - app.services.sequential_consumer_service - INFO - Consumed message msg_5_2_f9eec547 for batch 5, sequence 2, vendor EVICORE
+2025-08-26 07:32:38,602 - app.services.sequential_consumer_service - INFO - Consumed message msg_5_3_b86935b3 for batch 5, sequence 3, vendor EVICORE
+2025-08-26 07:32:38,760 - app.services.sequential_consumer_service - INFO - Consumed message msg_6_1_3c16e734 for batch 6, sequence 1, vendor EVICORE
+2025-08-26 07:32:40,763 - app.services.sequential_consumer_service - INFO - Found 10 published messages to consume
+2025-08-26 07:32:40,931 - app.services.sequential_consumer_service - INFO - Consumed message msg_6_2_217cb6ca for batch 6, sequence 2, vendor EVICORE
+2025-08-26 07:32:41,086 - app.services.sequential_consumer_service - INFO - Consumed message msg_6_3_258ef0c4 for batch 6, sequence 3, vendor EVICORE
+2025-08-26 07:32:41,242 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_1_b8fc60a9 for batch 7, sequence 1, vendor EVICORE
+2025-08-26 07:32:41,398 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_2_79497da0 for batch 7, sequence 2, vendor EVICORE
+2025-08-26 07:32:41,555 - app.services.sequential_consumer_service - INFO - Consumed message msg_7_3_4d18dece for batch 7, sequence 3, vendor EVICORE
+2025-08-26 07:32:41,712 - app.services.sequential_consumer_service - INFO - Consumed message msg_8_1_57621c60 for batch 8, sequence 1, vendor EVICORE
+2025-08-26 07:32:41,872 - app.services.sequential_consumer_service - INFO - Consumed message msg_8_2_0ede621c for batch 8, sequence 2, vendor EVICORE
+2025-08-26 07:32:42,029 - app.services.sequential_consumer_service - INFO - Consumed message msg_8_3_3fbf5e7c for batch 8, sequence 3, vendor EVICORE
+2025-08-26 07:32:42,186 - app.services.sequential_consumer_service - INFO - Consumed message msg_9_1_416e7b24 for batch 9, sequence 1, vendor EVICORE
+2025-08-26 07:32:42,343 - app.services.sequential_consumer_service - INFO - Consumed message msg_9_2_95d7e4b8 for batch 9, sequence 2, vendor EVICORE
+2025-08-26 07:32:44,349 - app.services.sequential_consumer_service - INFO - Found 10 published messages to consume
+2025-08-26 07:32:44,511 - app.services.sequential_consumer_service - INFO - Consumed message msg_9_3_ed5c3089 for batch 9, sequence 3, vendor EVICORE
+2025-08-26 07:32:44,669 - app.services.sequential_consumer_service - INFO - Consumed message msg_10_1_d42edc8a for batch 10, sequence 1, vendor EVICORE
+2025-08-26 07:32:44,829 - app.services.sequential_consumer_service - INFO - Consumed message msg_10_2_03fee4ec for batch 10, sequence 2, vendor EVICORE
+2025-08-26 07:32:44,990 - app.services.sequential_consumer_service - INFO - Consumed message msg_10_3_36375479 for batch 10, sequence 3, vendor EVICORE
+2025-08-26 07:32:45,151 - app.services.sequential_consumer_service - INFO - Consumed message msg_11_1_085fa85c for batch 11, sequence 1, vendor EVICORE
+2025-08-26 07:32:45,309 - app.services.sequential_consumer_service - INFO - Consumed message msg_11_2_8d5af623 for batch 11, sequence 2, vendor EVICORE
+2025-08-26 07:32:45,466 - app.services.sequential_consumer_service - INFO - Consumed message msg_11_3_f0641c10 for batch 11, sequence 3, vendor EVICORE
+2025-08-26 07:32:45,622 - app.services.sequential_consumer_service - INFO - Consumed message msg_12_1_cf433799 for batch 12, sequence 1, vendor EVICORE
+2025-08-26 07:32:45,780 - app.services.sequential_consumer_service - INFO - Consumed message msg_12_2_ddf8958c for batch 12, sequence 2, vendor EVICORE
+2025-08-26 07:32:45,940 - app.services.sequential_consumer_service - INFO - Consumed message msg_12_3_d86c98b4 for batch 12, sequence 3, vendor EVICORE
+2025-08-26 07:32:47,941 - app.services.sequential_consumer_service - INFO - Found 9 published messages to consume
+2025-08-26 07:32:48,101 - app.services.sequential_consumer_service - INFO - Consumed message msg_13_1_4ea24b17 for batch 13, sequence 1, vendor EVICORE
+2025-08-26 07:32:48,261 - app.services.sequential_consumer_service - INFO - Consumed message msg_13_2_458176a2 for batch 13, sequence 2, vendor EVICORE
+2025-08-26 07:32:48,427 - app.services.sequential_consumer_service - INFO - Consumed message msg_13_3_946499d0 for batch 13, sequence 3, vendor EVICORE
+2025-08-26 07:32:48,590 - app.services.sequential_consumer_service - INFO - Consumed message msg_14_1_b2a804b7 for batch 14, sequence 1, vendor EVICORE
+2025-08-26 07:32:48,752 - app.services.sequential_consumer_service - INFO - Consumed message msg_14_2_b798f86d for batch 14, sequence 2, vendor EVICORE
+2025-08-26 07:32:48,911 - app.services.sequential_consumer_service - INFO - Consumed message msg_14_3_aeb279b6 for batch 14, sequence 3, vendor EVICORE
+2025-08-26 07:32:49,072 - app.services.sequential_consumer_service - INFO - Consumed message msg_15_1_61781b78 for batch 15, sequence 1, vendor EVICORE
+2025-08-26 07:32:49,236 - app.services.sequential_consumer_service - INFO - Consumed message msg_15_2_d40cee9a for batch 15, sequence 2, vendor EVICORE
+2025-08-26 07:32:49,397 - app.services.sequential_consumer_service - INFO - Consumed message msg_15_3_8b973b49 for batch 15, sequence 3, vendor EVICORE
+2025-08-26 07:33:06,842 - app.api.sequential_batch - INFO - Getting status for batch 11
+2025-08-26 07:35:16,022 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:35:16,069 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:35:16,070 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:35:16,070 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 07:35:16,071 - app.services.batch_aware_outbox_processor - INFO - 🟢 Batch-Aware Outbox Processor started
+2025-08-26 07:35:16,071 - app.main - INFO - Starting sequential batch consumer service...
+2025-08-26 07:35:16,072 - app.services.sequential_consumer_service - INFO - Sequential batch consumer service started
+2025-08-26 07:35:16,073 - app.services.batch_aware_outbox_processor - INFO - Starting batch-aware processing loop...
+2025-08-26 07:45:24,143 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:45:24,185 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:45:24,186 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:45:24,186 - app.main - INFO - Starting batch-aware outbox processor...
+2025-08-26 07:47:20,900 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:47:20,950 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:47:20,951 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 07:48:15,111 - app.services.sequential_batch_service - INFO - Published request batch_16_seq_1 to Pub/Sub simulation: msg_16_1_10758073
+2025-08-26 07:48:15,120 - app.services.sequential_batch_service - INFO - Batch 16 committed - all requests processed
+2025-08-26 07:55:42,617 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 07:55:42,650 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 07:55:42,651 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 08:01:38,428 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 08:01:38,479 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 08:01:38,480 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 08:02:25,045 - app.services.sequential_batch_service - INFO - Published request batch_17_seq_1 to Pub/Sub simulation: msg_17_1_050cc248
+2025-08-26 08:02:25,054 - app.services.sequential_batch_service - INFO - Batch 17 committed - all requests processed
+2025-08-26 08:02:55,255 - app.api.sequential_batch - INFO - Getting status for batch 17
+2025-08-26 09:12:38,779 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 09:12:38,832 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 09:12:38,832 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 09:20:34,302 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 09:20:34,344 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 09:20:34,344 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 09:22:31,628 - app.services.sequential_batch_service - INFO - Published request batch_18_seq_1 to Pub/Sub simulation: msg_18_1_ee12131c
+2025-08-26 09:22:31,636 - app.services.sequential_batch_service - INFO - Batch 18 committed - all requests processed
+2025-08-26 09:27:40,519 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-26 09:27:40,567 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-26 09:27:40,567 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-26 09:28:08,280 - app.services.sequential_batch_service - INFO - Published request batch_19_seq_1 to Pub/Sub simulation: msg_19_1_f9a020a4
+2025-08-26 09:28:08,286 - app.services.sequential_batch_service - INFO - Published request batch_19_seq_2 to Pub/Sub simulation: msg_19_2_e563db1c
+2025-08-26 09:28:08,293 - app.services.sequential_batch_service - INFO - Batch 19 committed - all requests processed
+2025-08-28 04:23:08,579 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 04:23:08,854 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 04:23:08,856 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 04:24:56,152 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 04:24:56,210 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 04:24:56,211 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 04:27:58,042 - app.services.sequential_batch_service - INFO - Published request batch_20_seq_1 to Pub/Sub simulation: msg_20_1_98de848c
+2025-08-28 04:27:58,054 - app.services.sequential_batch_service - INFO - Batch 20 committed - all requests processed
+2025-08-28 04:29:08,479 - app.services.sequential_batch_service - INFO - Published request batch_21_seq_1 to Pub/Sub simulation: msg_21_1_0d6b3b5f
+2025-08-28 04:29:08,486 - app.services.sequential_batch_service - INFO - Published request batch_21_seq_2 to Pub/Sub simulation: msg_21_2_7e5c11cb
+2025-08-28 04:29:08,494 - app.services.sequential_batch_service - INFO - Batch 21 committed - all requests processed
+2025-08-28 04:29:44,573 - app.services.sequential_batch_service - INFO - Published request batch_22_seq_1 to Pub/Sub simulation: msg_22_1_b5a88c9d
+2025-08-28 04:29:44,580 - app.services.sequential_batch_service - INFO - Batch 22 committed - all requests processed
+2025-08-28 04:30:00,758 - app.api.sequential_batch - INFO - Getting status for batch 22
+2025-08-28 04:55:09,159 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 04:55:09,432 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 04:55:09,432 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 04:56:35,347 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 04:56:35,395 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 04:56:35,395 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 04:57:26,314 - app.services.sequential_batch_service - INFO - Published request batch_23_seq_1 to Pub/Sub simulation: msg_23_1_2dd37975
+2025-08-28 04:57:26,323 - app.services.sequential_batch_service - INFO - Batch 23 committed - all requests processed
+2025-08-28 04:58:19,842 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 04:58:19,876 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 04:58:19,876 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 04:58:34,164 - app.services.sequential_batch_service - INFO - Published request batch_24_seq_1 to Pub/Sub simulation: msg_24_1_b8c65347
+2025-08-28 04:58:34,176 - app.services.sequential_batch_service - INFO - Batch 24 committed - all requests processed
+2025-08-28 05:01:46,415 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 05:01:46,432 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 05:01:46,433 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 06:25:14,705 - app.services.sequential_batch_service - INFO - Published request batch_25_seq_1 to Pub/Sub simulation: msg_25_1_258b8d2a
+2025-08-28 06:25:14,715 - app.services.sequential_batch_service - INFO - Batch 25 committed - all requests processed
+2025-08-28 06:39:28,731 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 06:39:28,760 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 06:39:28,761 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 06:40:06,369 - app.services.sequential_batch_service - INFO - Published request batch_26_seq_1 to Pub/Sub simulation: msg_26_1_97459087
+2025-08-28 06:40:06,377 - app.services.sequential_batch_service - INFO - Batch 26 committed - all requests processed
+2025-08-28 06:42:33,590 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 06:42:33,607 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 06:42:33,607 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 06:43:11,496 - app.api.sequential_batch - INFO - Getting status for batch 22
+2025-08-28 06:46:59,049 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 06:46:59,071 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 06:46:59,072 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 07:02:39,602 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 07:02:39,632 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 07:02:39,633 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 07:04:38,077 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 07:04:38,105 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 07:04:38,106 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:27:07,586 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 08:27:07,620 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 08:27:07,620 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:28:11,938 - app.services.sequential_batch_service - ERROR - Error publishing batch 27 to Pub/Sub: File /app/application_default_credentials.json was not found.
+2025-08-28 08:28:11,944 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: File /app/application_default_credentials.json was not found.
+2025-08-28 08:28:11,944 - app.api.sequential_batch - ERROR - Error in complete batch processing: File /app/application_default_credentials.json was not found.
+2025-08-28 08:29:24,571 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 08:29:24,598 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 08:29:24,599 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:29:35,855 - app.services.sequential_batch_service - ERROR - Error publishing batch 27 to Pub/Sub: An asyncio.Future, a coroutine or an awaitable is required
+2025-08-28 08:29:35,862 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: An asyncio.Future, a coroutine or an awaitable is required
+2025-08-28 08:29:35,862 - app.api.sequential_batch - ERROR - Error in complete batch processing: An asyncio.Future, a coroutine or an awaitable is required
+2025-08-28 08:33:01,764 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 08:33:01,780 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 08:33:01,781 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:33:22,974 - app.services.sequential_batch_service - ERROR - Error publishing batch 27 to Pub/Sub: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:33:22,979 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:33:22,979 - app.api.sequential_batch - ERROR - Error in complete batch processing: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:38:35,188 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 08:38:35,208 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 08:38:35,209 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:38:57,506 - app.services.sequential_batch_service - ERROR - Error publishing batch 1 to Pub/Sub: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:38:57,511 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:38:57,512 - app.api.sequential_batch - ERROR - Error in complete batch processing: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:50:01,205 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 08:50:01,224 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 08:50:01,225 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 08:50:31,571 - app.services.sequential_batch_service - ERROR - Error publishing batch 1 to Pub/Sub: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:50:31,577 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 08:50:31,578 - app.api.sequential_batch - ERROR - Error in complete batch processing: module 'google.cloud.pubsub_v1' has no attribute 'AsyncPublisherClient'
+2025-08-28 09:00:40,121 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 09:00:40,140 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 09:00:40,141 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 09:01:01,109 - app.services.sequential_batch_service - ERROR - Error publishing batch <coroutine object SequentialBatchService._get_next_batch_id at 0x70f20137b840> to Pub/Sub: name 'project_id' is not defined
+2025-08-28 09:01:01,110 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: name 'project_id' is not defined
+2025-08-28 09:01:01,110 - app.api.sequential_batch - ERROR - Error in complete batch processing: name 'project_id' is not defined
+2025-08-28 09:03:24,814 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 09:03:24,832 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 09:03:24,833 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 09:04:29,899 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch <coroutine object SequentialBatchService._get_next_batch_id at 0x739d7131f760>.
+2025-08-28 09:04:29,900 - app.services.sequential_batch_service - ERROR - Error publishing batch <coroutine object SequentialBatchService._get_next_batch_id at 0x739d7131f760> to Pub/Sub: 1 validation error for BatchIngestResponse
+batch_id
+  Input should be a valid integer [type=int_type, input_value=<coroutine object Sequent...ch_id at 0x739d7131f760>, input_type=coroutine]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_type
+2025-08-28 09:04:29,900 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: 1 validation error for BatchIngestResponse
+batch_id
+  Input should be a valid integer [type=int_type, input_value=<coroutine object Sequent...ch_id at 0x739d7131f760>, input_type=coroutine]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_type
+2025-08-28 09:04:29,901 - app.api.sequential_batch - ERROR - Error in complete batch processing: 1 validation error for BatchIngestResponse
+batch_id
+  Input should be a valid integer [type=int_type, input_value=<coroutine object Sequent...ch_id at 0x739d7131f760>, input_type=coroutine]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_type
+2025-08-28 09:09:02,646 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 09:09:02,669 - app.services.mongodb_service - ERROR - Failed to create indexes: 'NoneType' object has no attribute 'create_index'
+2025-08-28 09:09:02,670 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 09:09:24,339 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 09:09:24,346 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:13:26,071 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 09:13:26,077 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:15:37,186 - app.services.sequential_batch_service - INFO - Successfully published all 9 messages for batch 1.
+2025-08-28 09:15:37,194 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:34:31,359 - app.services.sequential_batch_service - INFO - Successfully published all 9 messages for batch 1.
+2025-08-28 09:34:31,371 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:34:33,098 - app.services.sequential_batch_service - INFO - Successfully published all 9 messages for batch 1.
+2025-08-28 09:34:33,102 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:34:35,078 - app.services.sequential_batch_service - INFO - Successfully published all 9 messages for batch 1.
+2025-08-28 09:34:35,087 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:45:45,851 - app.api.sequential_batch - INFO - Getting status for batch 1
+2025-08-28 09:45:45,857 - app.services.sequential_batch_service - ERROR - Error getting batch 1 status: Batch 1 not found
+2025-08-28 09:48:14,074 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 09:48:14,487 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 09:48:14,488 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 09:50:41,995 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 09:50:42,018 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:50:48,360 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 09:50:48,367 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 09:58:06,721 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 09:58:06,768 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 09:58:06,768 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 09:58:27,895 - app.services.sequential_batch_service - ERROR - Error publishing batch 1 to Pub/Sub: 'dict' object has no attribute 'dict'
+2025-08-28 09:58:27,896 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: 'dict' object has no attribute 'dict'
+2025-08-28 09:58:27,899 - app.api.sequential_batch - ERROR - Error in complete batch processing: 'dict' object has no attribute 'dict'
+2025-08-28 10:00:30,302 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 10:00:30,342 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 10:00:30,343 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 10:00:44,494 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 10:00:44,501 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 10:00:48,336 - app.services.sequential_batch_service - ERROR - Error publishing batch 1 to Pub/Sub: E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }', 'keyPattern': {'batch_id': 1}, 'keyValue': {'batch_id': '1'}}
+2025-08-28 10:00:48,337 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }', 'keyPattern': {'batch_id': 1}, 'keyValue': {'batch_id': '1'}}
+2025-08-28 10:00:48,338 - app.api.sequential_batch - ERROR - Error in complete batch processing: E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: batch_processing.batch_metadata index: batch_id_1 dup key: { batch_id: "1" }', 'keyPattern': {'batch_id': 1}, 'keyValue': {'batch_id': '1'}}
+2025-08-28 10:08:01,364 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 10:08:01,412 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 10:08:01,413 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 10:08:26,469 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 1.
+2025-08-28 10:08:26,476 - app.services.sequential_batch_service - INFO - Batch 1 committed - all requests processed
+2025-08-28 10:08:31,708 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 2.
+2025-08-28 10:08:31,713 - app.services.sequential_batch_service - INFO - Batch 2 committed - all requests processed
+2025-08-28 10:10:17,820 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 3.
+2025-08-28 10:10:17,826 - app.services.sequential_batch_service - INFO - Batch 3 committed - all requests processed
+2025-08-28 10:10:19,769 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 4.
+2025-08-28 10:10:19,778 - app.services.sequential_batch_service - INFO - Batch 4 committed - all requests processed
+2025-08-28 10:21:54,269 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 10:21:54,322 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 10:21:54,323 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 10:22:50,290 - app.services.sequential_batch_service - ERROR - Error publishing batch 5 to Pub/Sub: All attributes being published to Pub/Sub must be sent as text strings.
+2025-08-28 10:22:50,291 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: All attributes being published to Pub/Sub must be sent as text strings.
+2025-08-28 10:22:50,291 - app.api.sequential_batch - ERROR - Error in complete batch processing: All attributes being published to Pub/Sub must be sent as text strings.
+2025-08-28 10:23:41,552 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 10:23:41,600 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 10:23:41,601 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-28 10:23:57,632 - app.services.sequential_batch_service - INFO - Successfully published all 4 messages for batch 6.
+2025-08-28 10:23:57,639 - app.services.sequential_batch_service - INFO - Batch 6 committed - all requests processed
+2025-08-28 10:48:45,734 - app.main - INFO - Shutting down application...
+2025-08-28 10:48:45,740 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-08-28 10:48:45,742 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-08-28 11:04:47,115 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-28 11:04:47,161 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-28 11:04:47,161 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 06:50:52,686 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 06:50:52,742 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 06:50:52,742 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 06:51:05,960 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 06:51:06,013 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 06:51:06,014 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 06:52:05,857 - app.services.sequential_batch_service - INFO - Successfully published all 1 messages for batch 7.
+2025-08-29 06:52:05,878 - app.services.sequential_batch_service - INFO - Batch 7 committed - all requests processed
+2025-08-29 07:06:09,218 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:06:09,263 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:06:09,264 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:06:32,453 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: name 'is_committed' is not defined
+2025-08-29 07:06:32,454 - app.api.sequential_batch - ERROR - Error in complete batch processing: name 'is_committed' is not defined
+2025-08-29 07:31:27,073 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:31:27,112 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:31:27,113 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:31:57,086 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: 'SequentialBatchService' object has no attribute 'batch_metadata_collection'
+2025-08-29 07:31:57,087 - app.api.sequential_batch - ERROR - Error in complete batch processing: 'SequentialBatchService' object has no attribute 'batch_metadata_collection'
+2025-08-29 07:35:03,477 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:35:03,523 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:35:03,524 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:35:19,747 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: name 'batch_metadata' is not defined
+2025-08-29 07:35:19,747 - app.api.sequential_batch - ERROR - Error in complete batch processing: name 'batch_metadata' is not defined
+2025-08-29 07:36:16,999 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:36:17,044 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:36:17,045 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:36:29,732 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: 'NoneType' object has no attribute 'get'
+2025-08-29 07:36:29,732 - app.api.sequential_batch - ERROR - Error in complete batch processing: 'NoneType' object has no attribute 'get'
+2025-08-29 07:39:24,546 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:39:24,583 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:39:24,583 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:41:56,073 - app.api.sequential_batch - INFO - Getting status for batch 12
+2025-08-29 07:41:56,078 - app.services.sequential_batch_service - ERROR - Error getting batch 12 status: Batch 12 not found
+2025-08-29 07:52:50,741 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:52:50,786 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:52:50,786 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 07:53:02,711 - app.api.sequential_batch - INFO - Getting status for batch 12
+2025-08-29 07:56:10,942 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 07:56:10,982 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 07:56:10,982 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:20:59,187 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:20:59,239 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:20:59,240 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:24:22,807 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:24:22,860 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:24:22,861 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:25:12,416 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:25:12,455 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:25:12,456 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:28:23,927 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:28:23,964 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:28:23,964 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:41:11,144 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:41:11,179 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:41:11,180 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:42:26,207 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:42:26,249 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:42:26,249 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-08-29 08:43:33,982 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-08-29 08:43:34,027 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-08-29 08:43:34,028 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 06:04:14,670 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 06:04:14,738 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 06:04:14,739 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 10:45:17,167 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 10:45:17,223 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 10:45:17,223 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 10:46:10,556 - app.services.sequential_batch_service - ERROR - Error publishing batch 19 to Pub/Sub: cannot import name 'VendorName' from 'app.models' (/workspace/app/models/__init__.py)
+2025-09-01 10:46:10,559 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: cannot import name 'VendorName' from 'app.models' (/workspace/app/models/__init__.py)
+2025-09-01 10:46:10,560 - app.api.sequential_batch - ERROR - Error in complete batch processing: cannot import name 'VendorName' from 'app.models' (/workspace/app/models/__init__.py)
+2025-09-01 10:49:06,580 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 10:49:06,616 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 10:49:06,616 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 10:49:11,537 - app.services.sequential_batch_service - ERROR - Error publishing batch 20 to Pub/Sub: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:49:11,540 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:49:11,541 - app.api.sequential_batch - ERROR - Error in complete batch processing: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:49:37,786 - app.services.sequential_batch_service - ERROR - Error publishing batch 21 to Pub/Sub: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:49:37,788 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:49:37,789 - app.api.sequential_batch - ERROR - Error in complete batch processing: cannot import name 'VendorName' from 'app.models.prior_auth' (/workspace/app/models/prior_auth/__init__.py)
+2025-09-01 10:51:40,677 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 10:51:40,725 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 10:51:40,725 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 10:52:39,949 - app.api.sequential_batch - INFO - Getting status for batch 23
+2025-09-01 11:05:42,080 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:05:42,143 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:05:42,144 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:12:56,289 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:12:56,326 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:12:56,326 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:18:24,681 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:18:24,730 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:18:24,730 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:21:51,763 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:21:51,808 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:21:51,809 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:25:08,148 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:25:08,189 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:25:08,189 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:29:35,157 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:29:35,207 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:29:35,208 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:31:18,078 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:31:18,110 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:31:18,111 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-01 11:36:51,734 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-01 11:36:51,779 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-01 11:36:51,780 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-02 05:59:06,106 - app.api.sequential_batch - INFO - Getting status for batch 25
+2025-09-02 07:00:19,445 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-02 07:00:19,489 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-02 07:00:19,489 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-02 07:53:50,531 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-02 07:53:50,581 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-02 07:53:50,581 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-03 05:34:28,233 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-03 05:34:28,332 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-03 05:34:28,334 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-04 05:44:14,815 - app.api.sequential_batch - INFO - Getting status for batch 22
+2025-09-04 08:04:29,871 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-04 08:04:59,977 - app.services.mongodb_service - ERROR - Failed to create indexes: mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68b9480ddfa76ce8c25fcf35, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-09-04 08:04:59,978 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 04:42:16,215 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 04:42:16,506 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 04:42:16,514 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 05:07:38,284 - app.api.sequential_batch - INFO - Getting status for batch 26
+2025-09-05 05:08:42,589 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 05:08:42,799 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 05:08:42,800 - app.services.mongodb_service - ERROR - Failed to connect to MongoDB: name 'result' is not defined
+2025-09-05 05:08:46,118 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 05:08:46,155 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 05:08:46,156 - app.services.mongodb_service - ERROR - Failed to connect to MongoDB: name 'result' is not defined
+2025-09-05 05:08:49,463 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 05:08:49,492 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 05:08:49,493 - app.services.mongodb_service - ERROR - Failed to connect to MongoDB: name 'result' is not defined
+2025-09-05 05:08:53,243 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 05:08:53,296 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 05:08:53,297 - app.services.mongodb_service - ERROR - Failed to connect to MongoDB: name 'result' is not defined
+2025-09-05 05:10:12,438 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 05:10:12,471 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 05:10:12,472 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 05:10:48,660 - app.api.sequential_batch - INFO - Getting status for batch 1
+2025-09-05 06:10:34,059 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 06:10:34,285 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 06:10:34,285 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 06:11:08,028 - app.services.sequential_batch_service - ERROR - Error publishing batch 1 to Pub/Sub: All attributes being published to Pub/Sub must be sent as text strings.
+2025-09-05 06:11:08,037 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: All attributes being published to Pub/Sub must be sent as text strings.
+2025-09-05 06:11:08,038 - app.api.sequential_batch - ERROR - Error in complete batch processing: All attributes being published to Pub/Sub must be sent as text strings.
+2025-09-05 06:16:28,387 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 06:16:28,416 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 06:16:28,416 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 06:16:40,775 - app.services.sequential_batch_service - ERROR - Error publishing batch 2 to Pub/Sub: name 'request_id' is not defined
+2025-09-05 06:16:40,781 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: name 'request_id' is not defined
+2025-09-05 06:16:40,781 - app.api.sequential_batch - ERROR - Error in complete batch processing: name 'request_id' is not defined
+2025-09-05 06:17:12,724 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 06:17:12,756 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 06:17:12,757 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 06:37:37,759 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 06:37:38,002 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 06:37:38,003 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 07:02:49,781 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 07:03:20,064 - app.services.mongodb_service - ERROR - Failed to create indexes: mongo:27017: [Errno -5] No address associated with hostname (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68ba8b199ab0440ab61e71bc, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo:27017: [Errno -5] No address associated with hostname (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-09-05 07:03:20,064 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 07:21:29,018 - app.main - INFO - Shutting down application...
+2025-09-05 07:21:29,022 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-09-05 07:21:29,024 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-09-05 07:44:21,941 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 07:44:22,187 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 07:44:22,188 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 07:46:24,272 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 07:46:24,306 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 07:46:24,306 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 08:30:09,603 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 08:30:09,650 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 08:30:09,650 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 08:48:43,191 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 08:48:43,245 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 08:48:43,246 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:28:20,721 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:28:20,777 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:28:20,778 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:34:06,247 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:34:06,290 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:34:06,290 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:34:16,843 - app.services.sequential_batch_service - ERROR - Error publishing batch 3 to Pub/Sub: 1 validation error for BatchIngestResponse
+total_requests
+  Field required [type=missing, input_value={'batch_id': 3, 'status':..., 5, 9, 34, 16, 843184)}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-09-05 09:34:16,849 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: 1 validation error for BatchIngestResponse
+total_requests
+  Field required [type=missing, input_value={'batch_id': 3, 'status':..., 5, 9, 34, 16, 843184)}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-09-05 09:34:16,850 - app.api.sequential_batch - ERROR - Error in complete batch processing: 1 validation error for BatchIngestResponse
+total_requests
+  Field required [type=missing, input_value={'batch_id': 3, 'status':..., 5, 9, 34, 16, 843184)}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-09-05 09:35:19,689 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:35:19,740 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:35:19,741 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:44:34,051 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:44:34,095 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:44:34,096 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:47:11,989 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:47:12,295 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:47:12,296 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:53:20,067 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:53:20,110 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:53:20,111 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:58:07,522 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 09:58:07,571 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 09:58:07,572 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 09:58:24,068 - app.main - INFO - Shutting down application...
+2025-09-05 09:58:24,072 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-09-05 09:58:24,074 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-09-05 10:00:20,907 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:00:20,954 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:00:20,955 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:06:03,536 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:06:03,576 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:06:03,576 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:13:52,759 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:13:52,800 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:13:52,800 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:15:03,388 - app.api.sequential_batch - INFO - Getting status for batch 1
+2025-09-05 10:15:11,451 - app.api.sequential_batch - INFO - Getting status for batch 3
+2025-09-05 10:15:23,733 - app.api.sequential_batch - INFO - Getting status for batch 6
+2025-09-05 10:20:13,558 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:20:13,601 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:20:13,602 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:28:10,165 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:28:10,207 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:28:10,208 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:31:20,272 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:31:20,567 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:31:20,569 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:32:02,572 - app.api.sequential_batch - INFO - Getting status for batch 30ad6fec-43d7-4011-aebd-b96c79960ad3
+2025-09-05 10:36:56,257 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:36:56,300 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:36:56,300 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 10:40:04,578 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 10:40:04,627 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 10:40:04,628 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 11:08:27,703 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 11:08:27,751 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 11:08:27,751 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 11:14:46,350 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 11:14:46,384 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 11:14:46,385 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-05 11:25:35,130 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-05 11:25:35,165 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-05 11:25:35,165 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-06 11:03:19,653 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-06 11:03:49,711 - app.services.mongodb_service - ERROR - Failed to create indexes: mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68bc14f73b12829e4e12e951, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-09-06 11:03:49,712 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-07 07:22:26,997 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-07 07:22:57,132 - app.services.mongodb_service - ERROR - Failed to create indexes: mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68bd32b20365e5ae4fbaed2a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo:27017: [Errno -2] Name or service not known (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-09-07 07:22:57,133 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-07 12:53:02,787 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-07 12:53:33,163 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68bd32d608235f94d962dd22, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-09-07 12:53:33,163 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://localhost:27017/?replicaSet=rs0
+2025-09-08 08:46:38,845 - app.main - INFO - Shutting down application...
+2025-09-08 08:46:38,845 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-09-08 08:46:38,845 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-09-08 03:30:00,726 - app.main - INFO - Shutting down application...
+2025-09-08 03:30:00,727 - app.services.mongodb_service - INFO - Disconnected from MongoDB
+2025-09-08 03:30:00,727 - app.main - INFO - Shutdown complete for Producer-Consumer Batch API
+2025-09-09 07:28:05,337 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:25:59,028 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:25:59,259 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 09:25:59,260 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 09:40:48,694 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:40:48,952 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 09:40:48,953 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 09:44:29,911 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:44:29,957 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 09:44:29,958 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 09:47:23,603 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:47:23,636 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 09:47:23,637 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 09:59:53,065 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 09:59:53,092 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 09:59:53,093 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:00:10,697 - app.api.sequential_batch - INFO - Getting status for batch requests
+2025-09-15 10:00:10,700 - app.services.sequential_batch_service - ERROR - Error getting batch requests status: Batch requests not found
+2025-09-15 10:05:16,781 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 10:05:16,808 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 10:05:16,809 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:05:21,580 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:05:21,586 - app.api.sequential_batch - ERROR - Error getting all combined request data: 1 validation error for APIResponse
+data
+  Input should be a valid dictionary [type=dict_type, input_value=[{'request_id': '878246f4..., 9, 51, 23, 187000)}]}], input_type=list]
+    For further information visit https://errors.pydantic.dev/2.11/v/dict_type
+2025-09-15 10:07:55,746 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 10:07:55,780 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 10:07:55,781 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:08:04,343 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:16:36,789 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 10:16:36,843 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 10:16:36,845 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:16:45,952 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:16:47,301 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:22:53,503 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 10:22:53,545 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 10:22:53,546 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:23:05,409 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:25:49,796 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-15 10:25:49,829 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-15 10:25:49,829 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-15 10:26:11,883 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-15 10:56:31,961 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 05:00:57,871 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 05:00:57,926 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 05:00:57,927 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 05:01:22,235 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 05:11:16,124 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 05:11:16,164 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 05:11:16,164 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 11:05:40,922 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 11:05:41,161 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 11:05:41,162 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 11:14:51,710 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 11:15:21,783 - app.services.mongodb_service - ERROR - Failed to create indexes: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68c946ab1d46f0d0df4e3e54, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-09-16 11:15:21,784 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 11:16:47,168 - app.services.sequential_batch_service - ERROR - Error publishing batch ccdc9e1b-4d03-4733-bb33-1fd4e5793aff to Pub/Sub: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68c946ab1d46f0d0df4e3e54, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-09-16 11:17:17,196 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68c946ab1d46f0d0df4e3e54, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-09-16 11:17:17,197 - app.api.sequential_batch - ERROR - Error in complete batch processing: No replica set members available for replica set name "rs0", Timeout: 30s, Topology Description: <TopologyDescription id: 68c946ab1d46f0d0df4e3e54, topology_type: ReplicaSetNoPrimary, servers: []>
+2025-09-16 11:33:42,271 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 11:33:42,460 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 11:33:42,461 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 11:34:04,381 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:34:49,612 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:35:00,643 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:35:43,971 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:35:51,455 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:36:18,279 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:37:35,779 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:43:24,386 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 11:51:46,752 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:00:01,018 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:00:03,506 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:00:04,594 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:00:05,581 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:26:47,751 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 12:26:47,985 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 12:26:47,986 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 12:35:38,051 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 12:35:38,089 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 12:35:38,089 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 12:44:17,792 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 12:44:18,018 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 12:44:18,019 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 12:44:27,264 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:45:10,200 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:45:40,527 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 12:49:51,421 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 12:49:51,451 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 12:49:51,452 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 12:50:09,962 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 13:09:34,103 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 13:09:34,355 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 13:09:34,356 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-16 13:09:54,682 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-16 13:17:41,054 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-16 13:17:41,083 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-16 13:17:41,084 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 05:30:53,856 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 05:30:53,891 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 05:30:53,891 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 05:31:25,372 - app.services.sequential_batch_service - ERROR - Error publishing batch 5b98b13d-34d5-47f9-b622-e7f45574eafa to Pub/Sub: name 'os' is not defined
+2025-09-17 05:31:25,380 - app.services.sequential_batch_service - ERROR - Error in complete batch flow: name 'os' is not defined
+2025-09-17 05:31:25,381 - app.api.sequential_batch - ERROR - Error in complete batch processing: name 'os' is not defined
+2025-09-17 05:36:56,390 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 05:36:56,427 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 05:36:56,428 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 06:33:38,092 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 06:33:38,363 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 06:33:38,364 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 06:55:42,666 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 06:55:42,907 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 06:55:42,908 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 06:56:23,817 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 06:56:44,256 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 06:57:23,631 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 06:59:09,265 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 06:59:09,305 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 06:59:09,306 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 06:59:22,514 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 06:59:31,955 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 06:59:35,436 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 07:00:11,458 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 07:02:15,923 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-17 07:08:50,207 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-17 07:08:50,246 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-17 07:08:50,246 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-17 07:09:36,035 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-19 18:14:03,424 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-19 18:14:03,868 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-19 18:14:03,869 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-20 12:57:47,348 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-20 12:57:47,802 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-20 12:57:47,803 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-20 13:01:08,555 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-20 13:05:09,421 - app.api.sequential_batch - INFO - Getting all combined request data for all requests

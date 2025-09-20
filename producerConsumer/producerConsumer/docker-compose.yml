@@ -1,0 +1,121 @@
+services:
+  # ui-Latest
+  ui:
+    build:
+      context: ./ui-latest
+      dockerfile: Dockerfile
+      args:
+          DATABASE_URL: mongodb://mongo:27017/medical_assistant
+          NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mongodb://mongo:27017/medical_assistant
+      - NEXTAUTH_URL=http://localhost:3000
+
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    volumes:
+      - ./ui-latest/.env:/app/.env:ro  # Mount environment file if it exists
+
+  # MongoDB Service
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_DATABASE: batch_processing
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    healthcheck:
+      test: |
+        mongosh --port 27017 --eval "
+        try {
+          rs.status();
+          print('Replica set already initialized');
+        } catch (err) {
+          if (err.message.includes('no replset config has been received')) {
+            print('Initializing replica set...');
+            rs.initiate({
+              _id: 'rs0',
+              members: [{
+                _id: 0,
+                host: 'mongo:27017'
+              }]
+            });
+            print('Replica set initialized');
+          }
+        }"
+      interval: 5s
+      timeout: 30s
+      start_period: 10s
+      retries: 30
+    networks:
+      - app-network
+
+  # Your Application Service
+  apiserver:
+    image: python:3.11
+    container_name: producer-consumer-app
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.docker
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: bash -c "pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  # Redis Service
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 50
+    networks:
+      - app-network
+
+  # MongoDB Express (Admin UI)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
