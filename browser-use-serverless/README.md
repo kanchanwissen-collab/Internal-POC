@@ -1,6 +1,6 @@
 # Browser Use Serverless
 
-A serverless browser automation service with 10 parallel sessions.
+A serverless browser automation service with a single session and dynamic session IDs.
 
 ## Quick Start with Docker Compose
 
@@ -25,34 +25,50 @@ A serverless browser automation service with 10 parallel sessions.
 
 ### Create a Session
 ```bash
-curl -X POST http://localhost:8080/api/sessions
+curl -X POST http://localhost:8080/api/v1/sessions
+```
+This will return a response like:
+```json
+{
+  "session_id": "a1b2-c3d4-e5f6-7890",
+  "vnc_url": "http://localhost:8080/sessions/a1b2-c3d4-e5f6-7890/vnc/vnc.html?autoconnect=1",
+  "vnc_port": 6080,
+  "web_port": 5080,
+  "display_num": 101
+}
 ```
 
 ### List Sessions  
 ```bash
-curl http://localhost:8080/api/sessions
+curl http://localhost:8080/api/v1/sessions
 ```
 
 ### Create an Agent
 ```bash
-curl -X POST http://localhost:8080/api/agents \
+curl -X POST http://localhost:8080/api/v1/agents \
   -H "Content-Type: application/json" \
-  -d '{"task": "Navigate to google.com", "session_id": "session_00"}'
+  -d '{"task": "Navigate to google.com", "session_id": "a1b2-c3d4-e5f6-7890", "request_id": "test-123"}'
+```
+
+### Delete a Session
+```bash
+curl -X DELETE http://localhost:8080/api/v1/sessions/a1b2-c3d4-e5f6-7890
 ```
 
 ### Access VNC
-- Session 00: http://localhost:8080/sessions/session_00/vnc/vnc.html
-- Session 01: http://localhost:8080/sessions/session_01/vnc/vnc.html
-- ... and so on
+Use the `vnc_url` returned from the create session API call, which will be in the format:
+- http://localhost:8080/sessions/{session_id}/vnc/vnc.html?autoconnect=1
 
 ## Session Configuration
 
-- **10 parallel sessions**: session_00 to session_09
-- **VNC ports**: 6080-6089 (internal)
-- **Web ports**: 5080-5089 (noVNC)
-- **Display numbers**: 101-110
+- **Single session**: Only one session can be active at a time
+- **Dynamic session ID**: 16-digit hexadecimal format (xxxx-xxxx-xxxx-xxxx)
+- **VNC port**: 6080 (internal)
+- **Web port**: 5080 (noVNC)
+- **Display number**: 101
 
 ## Environment Variables
 
 - `GOOGLE_API_KEY`: Required for Gemini LLM
 - `VNC_BASE_URL`: Base URL for VNC connections (default: http://localhost:8080)
+- `CAPSOLVER_API_KEY`: Optional API key for CapSolver extension
