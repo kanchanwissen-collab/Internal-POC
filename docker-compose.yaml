@@ -106,7 +106,9 @@ services:
         condition: service_healthy
 
   browser-use-serverless:
-    image: salonigupta19/browser-use-serverless:v4
+    build:
+      context: ./browser-use-serverless
+      dockerfile: Dockerfile
     container_name: browser-use-serverless
     ports:
       - "8080:8080"
@@ -129,7 +131,9 @@ services:
       retries: 20
 
   planner:
-    image: salonigupta19/planner:v1
+    build:
+      context: ./planner-backend
+      dockerfile: dockerfile
     container_name: planner
     ports:
       - "8001:8001"
@@ -162,7 +166,9 @@ services:
       retries: 20
 
   api_server:
-    image: salonigupta19/api-server:v1
+    build:
+      context: ./producerConsumer/producerConsumer
+      dockerfile: Dockerfile
     container_name: api-server
     ports:
         - "8000:8000"
@@ -212,7 +218,14 @@ services:
         condition: service_healthy
 
   frontend:
-    image: salonigupta19/frontend:v2 
+    build:
+      context: ./producerConsumer/producerConsumer/ui-latest
+      dockerfile: Dockerfile
+      args:
+        - DATABASE_URL=mongodb://mongo:27017/unified_db
+        - NEXT_PUBLIC_API_URL=http://34.60.81.78:8000
+        - NEXTAUTH_SECRET=your-secret-key-here
+        - NEXT_PUBLIC_SSE_SERVER_URL=http://34.60.81.78:8000/api/v1 
     container_name: frontend
     ports:
       - "3000:3000"

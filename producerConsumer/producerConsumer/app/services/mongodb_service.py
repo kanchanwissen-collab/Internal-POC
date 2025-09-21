@@ -25,6 +25,22 @@ import os
 
 logger = get_logger(__name__)
 
+def map_status_for_frontend(db_status: str) -> str:
+    """
+    Map database status values to frontend-friendly status names
+    """
+    status_mapping = {
+        "in_progress": "running",
+        "failed": "failed", 
+        "created": "queued",
+        "user_action_required": "manual-action",  # Changed to match frontend expectation
+        "completed": "completed",
+        "succeeded": "completed",
+        "processing": "running",
+        "action_needed": "manual-action"  # Changed to match frontend expectation
+    }
+    return status_mapping.get(db_status.lower(), db_status)
+
 
 class MongoDBService:
     """MongoDB service for batch processing with Outbox Pattern"""
@@ -255,9 +271,10 @@ class MongoDBService:
                 
                 formatted_request = {
                     "request_id": doc.get("requestId"),
+                    "batch_id": request_details.get("batch_id", "Unknown") if request_details else "Unknown",
                     "patient_name": request_details.get("patient_name", "Unknown") if request_details else "Unknown",
                     "payer_id": request_details.get("vendor", "Unknown") if request_details else "Unknown",
-                    "status": doc.get("status"),
+                    "status": map_status_for_frontend(doc.get("status", "unknown")),
                     "created_at": doc.get("lastUpdatedAt"),
                     "last_updated": doc.get("lastUpdatedAt"),
                     "current_step": doc.get("remarks"),

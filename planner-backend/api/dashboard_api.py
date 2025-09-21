@@ -8,6 +8,22 @@ from db.models.dbmodels.utility.httpResponseEnum import HttpResponseEnum
 
 router = APIRouter()
 
+def map_status_for_frontend(db_status: str) -> str:
+    """
+    Map database status values to frontend-friendly status names
+    """
+    status_mapping = {
+        "in_progress": "running",
+        "failed": "failed", 
+        "created": "queued",
+        "user_action_required": "manual-action",  # Changed to match frontend expectation
+        "completed": "completed",
+        "succeeded": "completed",
+        "processing": "running",
+        "action_needed": "manual-action"  # Changed to match frontend expectation
+    }
+    return status_mapping.get(db_status.lower(), db_status)
+
 class DashboardStats(BaseModel):
     total_requests: int = Field(..., description="Total number of preauth requests")
     pending_requests: int = Field(..., description="Number of pending requests")
@@ -18,6 +34,7 @@ class DashboardStats(BaseModel):
 
 class RequestSummary(BaseModel):
     request_id: str
+    batch_id: Optional[str] = None
     patient_name: str
     payer_id: str
     status: str
@@ -57,16 +74,18 @@ async def get_dashboard_stats(
         
         total_requests = len(requests)
         
-        # Count by status
-        status_counts = {}
+        # Count by status (using mapped frontend statuses)
+        frontend_status_counts = {}
         for request in requests:
-            status = request.get("status", "UNKNOWN")
-            status_counts[status] = status_counts.get(status, 0) + 1
+            db_status = request.get("status", "UNKNOWN")
+            frontend_status = map_status_for_frontend(db_status)
+            frontend_status_counts[frontend_status] = frontend_status_counts.get(frontend_status, 0) + 1
         
-        pending_requests = status_counts.get("IN_PROGRESS", 0) + status_counts.get("PROCESSING", 0)
-        completed_requests = status_counts.get("COMPLETED", 0)
-        failed_requests = status_counts.get("FAILED", 0)
-        user_action_required = status_counts.get("USER_ACTION_REQUIRED", 0)
+        # Map to dashboard stats using frontend status names
+        pending_requests = frontend_status_counts.get("running", 0) + frontend_status_counts.get("queued", 0)
+        completed_requests = frontend_status_counts.get("completed", 0)
+        failed_requests = frontend_status_counts.get("failed", 0)
+        user_action_required = frontend_status_counts.get("manual-action", 0)
         
         # Calculate success rate
         success_rate = 0.0
@@ -110,14 +129,17 @@ async def get_recent_requests(
         for progress in progress_data:
             request_id = progress["requestId"]
             
-            # Get original request details
+            # Get original request details (optional - may not exist for all requests)
             original_request = await db["priorAuthRequest"].find_one({"requestId": request_id})
-            if not original_request:
+            
+            # Filter by user_id if specified (only if original_request exists)
+            if user_id and original_request and original_request.get("userId") != user_id:
                 continue
             
-            # Filter by user_id if specified
-            if user_id and original_request.get("userId") != user_id:
-                continue
+            # Try to get details from batch_requests collection if priorAuthRequest doesn't exist
+            batch_request = None
+            if not original_request:
+                batch_request = await db["batch_requests"].find_one({"request_id": request_id})
             
             # Count pending user actions
             user_actions_count = await db["priorAuthUserAction"].count_documents({
@@ -125,12 +147,43 @@ async def get_recent_requests(
                 "actionStatus": "PENDING"
             })
             
+            # Use data from whichever source is available
+            if original_request:
+                patient_name = original_request.get("patientName", "Unknown")
+                payer_id = original_request.get("payerId", "Unknown")
+                created_at = original_request.get("createdAt") or progress.get("lastUpdatedAt")
+                batch_id = original_request.get("batchId")  # Check if priorAuthRequest has batch_id
+            elif batch_request:
+                patient_name = batch_request.get("patient_name", "Unknown")
+                payer_id = batch_request.get("vendor", "Unknown")
+                created_at = batch_request.get("created_at") or progress.get("lastUpdatedAt")
+                batch_id = batch_request.get("batch_id")  # Get batch_id from batch_requests
+            else:
+                patient_name = "Unknown"
+                payer_id = "Unknown"
+                created_at = progress.get("lastUpdatedAt")  # fallback to progress timestamp
+                batch_id = None
+            
+            # If we still don't have batch_id, try to find it from batch_requests collection
+            if not batch_id and not batch_request:
+                batch_request = await db["batch_requests"].find_one({"request_id": request_id})
+                if batch_request:
+                    batch_id = batch_request.get("batch_id")
+            
+            # Ensure created_at is never None
+            if created_at is None:
+                created_at = progress.get("lastUpdatedAt")
+            
+            # Map status to frontend-friendly name
+            frontend_status = map_status_for_frontend(progress.get("status", "UNKNOWN"))
+            
             results.append(RequestSummary(
                 request_id=request_id,
-                patient_name=original_request.get("patientName", "Unknown"),
-                payer_id=original_request.get("payerId", "Unknown"),
-                status=progress.get("status", "UNKNOWN"),
-                created_at=original_request.get("createdAt"),
+                batch_id=batch_id,
+                patient_name=patient_name,
+                payer_id=payer_id,
+                status=frontend_status,
+                created_at=created_at,
                 last_updated=progress.get("lastUpdatedAt"),
                 current_step=progress.get("workflowStep"),
                 user_actions_pending=user_actions_count
@@ -200,6 +253,11 @@ async def get_request_details(request_id: str):
         # Get original request
         original_request = await db["priorAuthRequest"].find_one({"requestId": request_id})
         
+        # If no priorAuthRequest, try to get from batch_requests
+        batch_request = None
+        if not original_request:
+            batch_request = await db["batch_requests"].find_one({"request_id": request_id})
+        
         # Get all user actions
         user_actions_cursor = db["priorAuthUserAction"].find({"requestId": request_id}).sort([("requestedAt", 1)])
         user_actions = await user_actions_cursor.to_list(None)
@@ -211,6 +269,7 @@ async def get_request_details(request_id: str):
             "request_id": request_id,
             "progress": progress,
             "original_request": original_request,
+            "batch_request": batch_request,  # Include batch request data if available
             "user_actions": user_actions,
             "conversation_history": conversation_history,
             "timeline": await build_request_timeline(db, request_id),
@@ -230,13 +289,23 @@ async def build_request_timeline(db, request_id: str) -> List[Dict[str, Any]]:
     
     # Add original request creation
     original_request = await db["priorAuthRequest"].find_one({"requestId": request_id})
-    if original_request:
+    if original_request and original_request.get("createdAt"):
         timeline.append({
             "timestamp": original_request["createdAt"],
             "event": "REQUEST_CREATED",
             "description": f"Preauth request created for patient {original_request.get('patientName')}",
             "details": {"payer_id": original_request.get("payerId")}
         })
+    else:
+        # Check batch_requests collection if priorAuthRequest doesn't exist
+        batch_request = await db["batch_requests"].find_one({"request_id": request_id})
+        if batch_request and batch_request.get("created_at"):
+            timeline.append({
+                "timestamp": batch_request.get("created_at"),
+                "event": "REQUEST_CREATED",
+                "description": f"Batch request created for patient {batch_request.get('patient_name', 'Unknown')}",
+                "details": {"payer_id": batch_request.get("vendor", "Unknown")}
+            })
     
     # Add progress updates (we could store these separately for better timeline)
     progress = await db["requestProgress"].find_one({"requestId": request_id})
@@ -264,8 +333,8 @@ async def build_request_timeline(db, request_id: str) -> List[Dict[str, Any]]:
             }
         })
     
-    # Sort timeline by timestamp
-    timeline.sort(key=lambda x: x["timestamp"])
+    # Sort timeline by timestamp, handling None values
+    timeline.sort(key=lambda x: x["timestamp"] if x["timestamp"] is not None else datetime.min)
     
     return timeline
 
@@ -307,16 +376,17 @@ async def get_payer_statistics(
             payer_id = group["_id"]
             request_ids = group["requests"]
             
-            # Get status counts for this payer's requests
-            status_counts = {}
+            # Get status counts for this payer's requests (using frontend statuses)
+            frontend_status_counts = {}
             for request_id in request_ids:
                 progress = await db["requestProgress"].find_one({"requestId": request_id})
                 if progress:
-                    status = progress.get("status", "UNKNOWN")
-                    status_counts[status] = status_counts.get(status, 0) + 1
+                    db_status = progress.get("status", "UNKNOWN")
+                    frontend_status = map_status_for_frontend(db_status)
+                    frontend_status_counts[frontend_status] = frontend_status_counts.get(frontend_status, 0) + 1
             
-            # Calculate success rate
-            completed = status_counts.get("COMPLETED", 0)
+            # Calculate success rate using frontend status
+            completed = frontend_status_counts.get("completed", 0)
             total = group["total_requests"]
             success_rate = (completed / total * 100) if total > 0 else 0
             
@@ -324,9 +394,9 @@ async def get_payer_statistics(
                 "payer_id": payer_id,
                 "total_requests": total,
                 "completed_requests": completed,
-                "failed_requests": status_counts.get("FAILED", 0),
-                "pending_requests": status_counts.get("IN_PROGRESS", 0) + status_counts.get("PROCESSING", 0),
-                "user_action_required": status_counts.get("USER_ACTION_REQUIRED", 0),
+                "failed_requests": frontend_status_counts.get("failed", 0),
+                "pending_requests": frontend_status_counts.get("running", 0) + frontend_status_counts.get("queued", 0),
+                "user_action_required": frontend_status_counts.get("manual-action", 0),
                 "success_rate": round(success_rate, 2)
             })
         

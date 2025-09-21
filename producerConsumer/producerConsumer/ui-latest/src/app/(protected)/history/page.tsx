@@ -8,6 +8,7 @@ type SessionStatus = 'submitted' | 'queued' | 'expired' | 'running' | 'failed' |
 
 // New type for the API response
 interface DashboardApiItem {
+    batch_id: string | null;
     created_at: string;
     current_step: string | null;
     last_updated: string;
@@ -132,7 +133,7 @@ export default function HistoryPage() {
                     
                     return {
                         id: req.request_id,
-                        sessionId: req.request_id, // Use request_id as sessionId since batch_id doesn't exist
+                        sessionId: req.batch_id || req.request_id, // Use actual batch_id if available, fallback to request_id
                         status: (req.status as SessionStatus) || 'queued',
                         createdAt: req.created_at || new Date().toISOString(),
                         lastActivity: req.last_updated || req.created_at || new Date().toISOString(),
@@ -146,7 +147,7 @@ export default function HistoryPage() {
                         vendor: req.payer_id || "Unknown",
                         sequence_no: "1", // Default sequence number
                         request_id: req.request_id,
-                        batch_id: req.request_id, // Use request_id as batch_id fallback
+                        batch_id: req.batch_id || "Unknown", // Use actual batch_id from API
                         manual_actions: [], // Empty array as fallback
                     };
                 });
