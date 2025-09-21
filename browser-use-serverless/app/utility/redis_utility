@@ -1,0 +1,38 @@
+import re ,logging
+ANSI_RE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ 
+ 
+def clean_msg(s: str) -> str:
+    """Strip ANSI color codes and CRs (keep emojis)."""
+    return ANSI_RE.sub('', s).rstrip('\r')
+ 
+ 
+def _pretty_name(name: str) -> str:
+    """Mimic BrowserUseFormatter's display names."""
+    if name.startswith('browser_use.agent'):
+        return 'Agent'
+    if name.startswith('browser_use.browser.session'):
+        return 'BrowserSession'
+    if name.startswith('browser_use.tools'):
+        return 'tools'
+    if name.startswith('browser_use.dom'):
+        return 'dom'
+    if name.startswith('browser_use.'):
+        # last component for other modules under browser_use.*
+        return name.split('.')[-1]
+    return name  # e.g., "auth", "service", etc.
+ 
+ 
+class RedisFormatter(logging.Formatter):
+    """Format like console: LEVEL TIMESTAMP [Name] message, but don't mutate global state."""
+    def __init__(self, fmt: str):
+        super().__init__(fmt, datefmt='%Y-%m-%d %H:%M:%S')
+ 
+    def format(self, record: logging.LogRecord) -> str:
+        original = record.name
+        try:
+            record.name = _pretty_name(original)
+            text = super().format(record)
+            return clean_msg(text)
+        finally:
+            record.name = original
