@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Logs URL Test</title>
+</head>
+<body>
+    <h1>Live Logs URL Test</h1>
+    
+    <p>The issue might be that the URL doesn't have the right parameters for live logs.</p>
+    
+    <h2>Current URL format (causing the error):</h2>
+    <code>/logs/67887c8a-7d12-47ff-b12c-9f13e9a11de8</code>
+    <p>This would use the historical logs endpoint: <code>/api/v1/stream-logs/67887c8a-7d12-47ff-b12c-9f13e9a11de8</code></p>
+    
+    <h2>Required URL format for live logs:</h2>
+    <code>/logs/67887c8a-7d12-47ff-b12c-9f13e9a11de8?status=running&request_id=67887c8a-7d12-47ff-b12c-9f13e9a11de8</code>
+    <p>This would use the live logs endpoint: <code>/api/v1/stream-logs/request/67887c8a-7d12-47ff-b12c-9f13e9a11de8</code></p>
+    
+    <h2>Test Links:</h2>
+    <a href="http://localhost:3000/logs/67887c8a-7d12-47ff-b12c-9f13e9a11de8" target="_blank">❌ Current URL (Historical Logs)</a><br><br>
+    <a href="http://localhost:3000/logs/67887c8a-7d12-47ff-b12c-9f13e9a11de8?status=running&request_id=67887c8a-7d12-47ff-b12c-9f13e9a11de8" target="_blank">✅ Fixed URL (Live Logs)</a>
+    
+    <h2>Test SSE Endpoints Directly:</h2>
+    <button onclick="testHistoricalSSE()">Test Historical SSE</button>
+    <button onclick="testLiveSSE()">Test Live SSE</button>
+    <button onclick="publishTestLog()">Publish Test Log</button>
+    
+    <div id="results" style="margin-top: 20px; font-family: monospace; background: #f0f0f0; padding: 10px; height: 300px; overflow-y: auto;"></div>
+    
+    <script>
+        const sessionId = '67887c8a-7d12-47ff-b12c-9f13e9a11de8';
+        const apiUrl = 'http://localhost:8000';
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message) {
+            resultsDiv.textContent += new Date().toISOString() + ' - ' + message + '\n';
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+        
+        function testHistoricalSSE() {
+            log('Testing Historical SSE endpoint...');
+            const url = `${apiUrl}/api/v1/stream-logs/${sessionId}`;
+            testSSE(url, 'Historical');
+        }
+        
+        function testLiveSSE() {
+            log('Testing Live SSE endpoint...');
+            const url = `${apiUrl}/api/v1/stream-logs/request/${sessionId}`;
+            testSSE(url, 'Live');
+        }
+        
+        function testSSE(url, type) {
+            log(`Connecting to ${type} SSE: ${url}`);
+            
+            const eventSource = new EventSource(url);
+            
+            eventSource.onopen = function() {
+                log(`✅ ${type} SSE connected successfully`);
+            };
+            
+            eventSource.onmessage = function(event) {
+                log(`📩 ${type} SSE message: ${event.data}`);
+            };
+            
+            eventSource.onerror = function(error) {
+                log(`❌ ${type} SSE error: ${error.type}`);
+                eventSource.close();
+            };
+            
+            // Close after 10 seconds
+            setTimeout(() => {
+                eventSource.close();
+                log(`🔌 ${type} SSE connection closed`);
+            }, 10000);
+        }
+        
+        async function publishTestLog() {
+            try {
+                log('Publishing test log to Redis...');
+                
+                // Since we can't directly access Redis from browser, show the command to run
+                const channel = `browser_use_logs:${sessionId}`;
+                const message = JSON.stringify({
+                    msg: 'Test log from browser',
+                    agent_name: 'test-browser-agent',
+                    request_id: sessionId,
+                    timestamp: Date.now() / 1000,
+                    source: 'browser_test'
+                });
+                
+                const command = `docker exec redis redis-cli PUBLISH "${channel}" '${message}'`;
+                log(`Run this command in terminal:`);
+                log(command);
+                
+            } catch (error) {
+                log(`❌ Error: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

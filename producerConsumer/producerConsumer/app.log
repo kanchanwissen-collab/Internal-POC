@@ -1108,3 +1108,6 @@ data
 2025-09-20 12:57:47,803 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
 2025-09-20 13:01:08,555 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
 2025-09-20 13:05:09,421 - app.api.sequential_batch - INFO - Getting all combined request data for all requests
+2025-09-21 19:05:51,320 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-21 19:05:51,943 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-21 19:05:51,944 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0

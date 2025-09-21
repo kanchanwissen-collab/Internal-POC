@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Logs SSE Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 200px;
+        }
+        button {
+            padding: 8px 16px;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .status.connected {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .status.disconnected {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .status.connecting {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        .logs {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        .log-entry.log {
+            color: #dcdcaa;
+        }
+        .log-entry.connected {
+            color: #4ec9b0;
+            font-weight: bold;
+        }
+        .log-entry.error {
+            color: #f44747;
+            font-weight: bold;
+        }
+        .log-entry.heartbeat {
+            color: #9cdcfe;
+            opacity: 0.7;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007acc;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .clear-logs {
+            background: #6c757d;
+            margin-left: auto;
+        }
+        .clear-logs:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Agent Logs SSE Test</h1>
+            <p>Test Server-Sent Events for agent logs by request_id</p>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="requestId" placeholder="Enter request_id (e.g., test_req_123)" value="test_req_123">
+            <input type="text" id="sseUrl" placeholder="SSE endpoint URL" value="http://localhost:3000/api/v1/stream-logs/request/">
+            <button id="connectBtn">Connect</button>
+            <button id="disconnectBtn" disabled>Disconnect</button>
+            <button id="clearBtn" class="clear-logs">Clear Logs</button>
+        </div>
+
+        <div id="status" class="status disconnected">
+            ❌ Disconnected
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="totalEvents">0</div>
+                <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="logEvents">0</div>
+                <div class="stat-label">Log Events</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="errorEvents">0</div>
+                <div class="stat-label">Error Events</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="connectionTime">-</div>
+                <div class="stat-label">Connected (seconds)</div>
+            </div>
+        </div>
+
+        <div id="logs" class="logs">
+            <div class="log-entry">Ready to connect. Enter a request_id and click Connect.</div>
+        </div>
+    </div>
+
+    <script>
+        let eventSource = null;
+        let stats = {
+            total: 0,
+            logs: 0,
+            errors: 0,
+            startTime: null
+        };
+        let connectionTimer = null;
+
+        const elements = {
+            requestId: document.getElementById('requestId'),
+            sseUrl: document.getElementById('sseUrl'),
+            connectBtn: document.getElementById('connectBtn'),
+            disconnectBtn: document.getElementById('disconnectBtn'),
+            clearBtn: document.getElementById('clearBtn'),
+            status: document.getElementById('status'),
+            logs: document.getElementById('logs'),
+            totalEvents: document.getElementById('totalEvents'),
+            logEvents: document.getElementById('logEvents'),
+            errorEvents: document.getElementById('errorEvents'),
+            connectionTime: document.getElementById('connectionTime')
+        };
+
+        function updateStats() {
+            elements.totalEvents.textContent = stats.total;
+            elements.logEvents.textContent = stats.logs;
+            elements.errorEvents.textContent = stats.errors;
+            
+            if (stats.startTime) {
+                const seconds = Math.floor((Date.now() - stats.startTime) / 1000);
+                elements.connectionTime.textContent = seconds;
+            } else {
+                elements.connectionTime.textContent = '-';
+            }
+        }
+
+        function addLog(message, type = 'log') {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.innerHTML = `<span style="color: #6c757d;">[${timestamp}]</span> ${message}`;
+            
+            elements.logs.appendChild(logEntry);
+            elements.logs.scrollTop = elements.logs.scrollHeight;
+        }
+
+        function updateStatus(message, type) {
+            elements.status.textContent = message;
+            elements.status.className = `status ${type}`;
+        }
+
+        function connect() {
+            const requestId = elements.requestId.value.trim();
+            const baseUrl = elements.sseUrl.value.trim();
+            
+            if (!requestId) {
+                alert('Please enter a request_id');
+                return;
+            }
+
+            const url = `${baseUrl}${requestId}`;
+            
+            updateStatus('🔄 Connecting...', 'connecting');
+            addLog(`Connecting to: ${url}`, 'connected');
+            
+            eventSource = new EventSource(url);
+            
+            eventSource.onopen = function(event) {
+                updateStatus('✅ Connected', 'connected');
+                addLog('✅ SSE connection established', 'connected');
+                stats.startTime = Date.now();
+                
+                elements.connectBtn.disabled = true;
+                elements.disconnectBtn.disabled = false;
+                elements.requestId.disabled = true;
+                elements.sseUrl.disabled = true;
+                
+                // Start connection timer
+                connectionTimer = setInterval(updateStats, 1000);
+            };
+            
+            eventSource.onmessage = function(event) {
+                stats.total++;
+                
+                try {
+                    const data = JSON.parse(event.data);
+                    
+                    switch(data.type) {
+                        case 'connected':
+                            addLog(`🔗 ${data.message}`, 'connected');
+                            break;
+                            
+                        case 'log':
+                            stats.logs++;
+                            const logData = data.data || {};
+                            const message = logData.message || 'No message';
+                            const source = logData.source || 'unknown';
+                            const requestIdFromLog = logData.request_id || 'N/A';
+                            
+                            addLog(`📨 [${source}] ${message} (req: ${requestIdFromLog})`, 'log');
+                            break;
+                            
+                        case 'heartbeat':
+                            addLog('💓 Heartbeat', 'heartbeat');
+                            break;
+                            
+                        case 'error':
+                            stats.errors++;
+                            addLog(`❌ Error: ${data.message}`, 'error');
+                            break;
+                            
+                        default:
+                            addLog(`📤 Unknown event type: ${data.type}`, 'log');
+                            console.log('Unknown event:', data);
+                    }
+                } catch (error) {
+                    addLog(`📤 Raw message: ${event.data}`, 'log');
+                }
+                
+                updateStats();
+            };
+            
+            eventSource.onerror = function(event) {
+                stats.errors++;
+                updateStatus('❌ Connection Error', 'disconnected');
+                addLog('❌ SSE connection error', 'error');
+                console.error('SSE Error:', event);
+                updateStats();
+                
+                // Auto-reconnect after error
+                setTimeout(() => {
+                    if (eventSource && eventSource.readyState === EventSource.CLOSED) {
+                        addLog('🔄 Attempting to reconnect...', 'connecting');
+                        connect();
+                    }
+                }, 5000);
+            };
+        }
+
+        function disconnect() {
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+            
+            if (connectionTimer) {
+                clearInterval(connectionTimer);
+                connectionTimer = null;
+            }
+            
+            updateStatus('❌ Disconnected', 'disconnected');
+            addLog('🔌 Disconnected', 'connected');
+            
+            elements.connectBtn.disabled = false;
+            elements.disconnectBtn.disabled = true;
+            elements.requestId.disabled = false;
+            elements.sseUrl.disabled = false;
+            
+            stats.startTime = null;
+            updateStats();
+        }
+
+        function clearLogs() {
+            elements.logs.innerHTML = '<div class="log-entry">Logs cleared.</div>';
+            
+            // Reset stats
+            stats.total = 0;
+            stats.logs = 0;
+            stats.errors = 0;
+            updateStats();
+        }
+
+        // Event listeners
+        elements.connectBtn.addEventListener('click', connect);
+        elements.disconnectBtn.addEventListener('click', disconnect);
+        elements.clearBtn.addEventListener('click', clearLogs);
+
+        // Allow Enter key to connect
+        elements.requestId.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && !elements.connectBtn.disabled) {
+                connect();
+            }
+        });
+
+        // Initialize stats display
+        updateStats();
+        
+        // Add some helpful info
+        addLog('💡 Tips:', 'connected');
+        addLog('   1. Enter a request_id and click Connect', 'log');
+        addLog('   2. Start an agent with the same request_id in another terminal', 'log');
+        addLog('   3. Watch the logs appear in real-time', 'log');
+        addLog('   4. The agent should publish to: browser_use_logs:{request_id}', 'log');
+    </script>
+</body>
+</html>

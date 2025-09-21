@@ -287,8 +287,11 @@ export default function HistoryPage() {
             agentType: getAgentTypeLabel(sessionItem.agentType),
             createdAt: sessionItem.createdAt,
             lastActivity: sessionItem.lastActivity,
+            request_id: sessionItem.request_id || '',
+            batch_id: sessionItem.batch_id || '',
         }).toString();
 
+        // Always use sessionId as route parameter, query params determine live vs historical logs
         const logUrl = `/logs/${sessionItem.sessionId}?${query}`;
         window.open(logUrl, '_blank');
     };
