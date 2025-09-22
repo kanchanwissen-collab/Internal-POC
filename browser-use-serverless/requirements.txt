@@ -1,0 +1,5 @@
+fastapi
+browser-use==0.7.1
+pydantic
+uvicorn
+redis
