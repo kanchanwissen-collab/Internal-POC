@@ -1,6 +1,7 @@
 # routers/agents.py
 from __future__ import annotations
 
+import asyncio
 import os
 import re
 import io
@@ -125,7 +126,7 @@ async def create_agent(body: AgentCreateRequest):
         if not api_key:
             raise HTTPException(status_code=500, detail="GOOGLE_API_KEY environment variable not set")
 
-        if not SESSIONS_MAP.get(session_id, False):
+        if not is_session_active(session_id):
             raise HTTPException(status_code=400, detail="Invalid or inactive session ID")
 
         browser_session = SESSION_ID_TO_BROWSER_SESSION.get(session_id)
@@ -311,16 +312,58 @@ Rules during form filling:
         logging.getLogger("browser_use.agent.service").info("[Agent] logger path check")
         print("[Agent] print path check")
 
-        # ----- RUN (blocking) -----
-        await agent.run()
+        # Store logging setup globally so it persists after the task starts
+        agent._redis_handler = redis_handler
+        agent._original_stdout = _stdout
+        agent._original_stderr = _stderr
+        agent._redis_stream_key = stream_key
+        agent._bu_logger = bu
+        agent._bu_prev_level = bu_prev_level
+        agent._redis_client = r
 
+        # ----- RUN (non-blocking) -----
+        async def run_agent_with_cleanup():
+            try:
+                # Ensure logging is still active
+                print(f"🚀 [Agent] Starting background task for request_id: {request_id}")
+                
+                result = await agent.run()
+                
+                print(f"✅ [Agent] Task completed for request_id: {request_id}")
+                logging.getLogger("browser_use.agent.service").info(f"[Agent] Task completed: {result}")
+                return result
+            except Exception as e:
+                print(f"❌ [Agent] Task failed for request_id: {request_id}: {str(e)}")
+                logging.getLogger("browser_use.agent.service").error(f"[Agent] Task failed: {str(e)}")
+                raise e
+            finally:
+                print(f"🧹 [Agent] Cleaning up logging for request_id: {request_id}")
+                # Cleanup logging when agent actually finishes
+                try:
+                    if hasattr(agent, '_original_stdout') and hasattr(agent, '_original_stderr'):
+                        sys.stdout, sys.stderr = agent._original_stdout, agent._original_stderr
+                except Exception:
+                    pass
+                try:
+                    if hasattr(agent, '_redis_handler') and hasattr(agent, '_bu_logger'):
+                        agent._bu_logger.removeHandler(agent._redis_handler)
+                        agent._bu_logger.setLevel(agent._bu_prev_level)
+                except Exception:
+                    pass
+
+        # Start the agent task in background
+        task = asyncio.create_task(run_agent_with_cleanup())
+        
+        # Store task reference for potential cancellation
+        agent._task = task
+        
         return JSONResponse(
             status_code=200,
             content={
-                "message": "Agent completed successfully",
+                "message": "Agent started successfully",
                 "request_id": request_id,
                 "session_id": session_id,
-                "remarks": "No result produced",
+                "remarks": "Agent running in background",
             },
         )
 
@@ -331,20 +374,22 @@ Rules during form filling:
         # generic 500 with message
         raise HTTPException(status_code=500, detail=f"Failed to start/run agent: {str(e)}")
     finally:
-        # restore std streams
-        try:
-            if _stdout is not None and _stderr is not None:
-                sys.stdout, sys.stderr = _stdout, _stderr
-        except Exception:
-            pass
+        # Only cleanup if agent creation failed (agent won't have the attributes set)
+        if 'agent' not in locals() or not hasattr(agent, '_redis_handler'):
+            # restore std streams
+            try:
+                if _stdout is not None and _stderr is not None:
+                    sys.stdout, sys.stderr = _stdout, _stderr
+            except Exception:
+                pass
 
-        # detach logging handler & level
-        try:
-            if redis_handler is not None:
-                bu.removeHandler(redis_handler)
-            bu.setLevel(bu_prev_level)
-        except Exception:
-            pass
+            # detach logging handler & level
+            try:
+                if redis_handler is not None:
+                    bu.removeHandler(redis_handler)
+                bu.setLevel(bu_prev_level)
+            except Exception:
+                pass
 
         # best-effort cleanup of processes/ports/maps
         
@@ -366,11 +411,33 @@ async def stop_agent(session_id: str):
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
 
+        # Cancel the background task if it exists
+        if hasattr(agent, '_task') and not agent._task.done():
+            try:
+                agent._task.cancel()
+                # Wait a bit for graceful cancellation
+                await asyncio.sleep(0.1)
+            except Exception:
+                pass
+
         # cooperative stop
         try:
             agent.stop()
         except Exception:
             # ignore if the underlying lib has different semantics
+            pass
+
+        # Manual cleanup of logging handlers if they weren't cleaned up by the task
+        try:
+            if hasattr(agent, '_original_stdout') and hasattr(agent, '_original_stderr'):
+                sys.stdout, sys.stderr = agent._original_stdout, agent._original_stderr
+        except Exception:
+            pass
+        try:
+            if hasattr(agent, '_redis_handler') and hasattr(agent, '_bu_logger'):
+                agent._bu_logger.removeHandler(agent._redis_handler)
+                agent._bu_logger.setLevel(agent._bu_prev_level)
+        except Exception:
             pass
 
         # cleanup

@@ -49,8 +49,8 @@ COPY app/ .
 COPY app.conf /etc/nginx/sites-available/default
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Set proper permissions for scripts
-RUN chmod +x /app/start-nginx.sh
+# Fix line endings and set proper permissions for scripts
+RUN sed -i 's/\r$//' /app/start-nginx.sh && chmod +x /app/start-nginx.sh
  
 # Expose ports
 EXPOSE 8080 443
