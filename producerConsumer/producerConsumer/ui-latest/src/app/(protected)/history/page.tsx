@@ -7,7 +7,13 @@ import toast from 'react-hot-toast'
 type SessionStatus = 'submitted' | 'queued' | 'expired' | 'running' | 'failed' | 'approved' | 'denied' | 'manual-action';
 
 // New type for the API response
-interface DashboardApiItem {
+interface AgenticPlatformApiResponse {
+    data: AgenticPlatformApiItem[];
+    message: string;
+    status: string;
+}
+
+interface AgenticPlatformApiItem {
     batch_id: string | null;
     created_at: string;
     current_step: string | null;
@@ -116,20 +122,24 @@ export default function HistoryPage() {
             toast.dismiss('agent-sessions-loaded')
 
             try {
-                // Fetch data from dashboard endpoint only
-                console.log('Fetching from dashboard endpoint...');
-                const dashboardResponse = await fetch('http://localhost:8001/api/dashboard/requests');
-                console.log('Dashboard Response status:', dashboardResponse.status);
+                // Fetch data from agentic-platform endpoint
+                console.log('Fetching from agentic-platform endpoint...');
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+                const dashboardResponse = await fetch(`${apiUrl}/api/v1/agentic-platform/prior-auths/requests`);
+                console.log('Agentic Platform Response status:', dashboardResponse.status);
                 
                 if (!dashboardResponse.ok) {
-                    throw new Error(`Dashboard API failed: ${dashboardResponse.status}`);
+                    throw new Error(`Agentic Platform API failed: ${dashboardResponse.status}`);
                 }
                 
-                const dashboardData: DashboardApiItem[] = await dashboardResponse.json();
-                console.log('Dashboard API Response:', dashboardData);
+                const agenticPlatformData = await dashboardResponse.json();
+                console.log('Agentic Platform API Response:', agenticPlatformData);
                 
-                // Map data from dashboard API
-                const formattedSessions: Session[] = dashboardData.map((req: DashboardApiItem) => {
+                // Extract the data array from the response
+                const requestsArray = agenticPlatformData.data || [];
+                
+                // Map data from agentic platform API
+                const formattedSessions: Session[] = requestsArray.map((req: AgenticPlatformApiItem) => {
                     
                     return {
                         id: req.request_id,

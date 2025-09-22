@@ -224,6 +224,7 @@ services:
       args:
         - DATABASE_URL=mongodb://mongo:27017/unified_db
         - NEXT_PUBLIC_API_URL=http://localhost:8000
+        - NEXT_PUBLIC_DASHBOARD_API_URL=http://localhost:8001
         - NEXTAUTH_SECRET=your-secret-key-here
         - NEXT_PUBLIC_SSE_SERVER_URL=http://localhost:8000/api/v1 
     container_name: frontend
@@ -232,6 +233,7 @@ services:
     environment:
       - DATABASE_URL=mongodb://mongo:27017/unified_db
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_DASHBOARD_API_URL=http://localhost:8001
       - NEXTAUTH_SECRET=your-secret-key-here
       - NEXT_PUBLIC_SSE_SERVER_URL=http://localhost:8000/api/v1
     networks:

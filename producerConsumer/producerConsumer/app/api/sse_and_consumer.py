@@ -110,17 +110,17 @@ async def stream_logs(request: Request, batch_id: str):
 @router.get("/stream-logs/request/{request_id}")
 async def stream_logs_by_request(request: Request, request_id: str):
     """
-    Streams messages from Redis pub/sub using Server-Sent Events (SSE) for a specific request_id.
-    This endpoint matches the agent.py publishing pattern: browser_use_logs:{request_id}
+    Streams messages from Redis Streams using Server-Sent Events (SSE) for a specific request_id.
+    This endpoint uses Redis Streams like the batch_id endpoint: browser_use_logs:{request_id}
     """
     if not redis_client:
         raise HTTPException(status_code=503, detail="Redis service is unavailable.")
 
-    # Use the same pattern as agent.py
-    redis_channel = f"browser_use_logs:{request_id}"
+    # Use Redis Streams like the batch_id endpoint
+    stream_key = f"browser_use_logs:{request_id}"
     
     async def event_generator():
-        pubsub = None
+        last_id = "0"  # Start from the beginning
         try:
             # Send initial connection event
             yield {
@@ -132,77 +132,65 @@ async def stream_logs_by_request(request: Request, request_id: str):
                 })
             }
 
-            # Create a new Redis connection for pub/sub
-            import redis as redis_lib
-            redis_host = redis_client.connection_pool.connection_kwargs.get('host', 'redis')
-            redis_port = redis_client.connection_pool.connection_kwargs.get('port', 6379)
-            
-            # Create dedicated Redis client for pub/sub
-            pubsub_redis = redis_lib.Redis(host=redis_host, port=redis_port, decode_responses=True)
-            pubsub = pubsub_redis.pubsub()
-            pubsub.subscribe(redis_channel)
-            
-            # Send status update
-            yield {
-                "data": json.dumps({
-                    "type": "status", 
-                    "message": f"Subscribed to Redis channel: {redis_channel}",
-                    "timestamp": datetime.datetime.now().isoformat()
-                })
-            }
-
-            # Listen for messages
             while True:
                 try:
                     if await request.is_disconnected():
                         print(f"Client disconnected from request_id: {request_id}")
                         break
 
-                    # Get message from Redis pub/sub with timeout
-                    message = pubsub.get_message(timeout=5.0)
+                    # Read from Redis Stream (like batch_id endpoint)
+                    result = redis_client.xread({stream_key: last_id}, count=10, block=5000)
                     
-                    if message:
-                        if message['type'] == 'message':
-                            data = message['data']
-                            
-                            try:
-                                # Try to parse as JSON (from agent.py with PUBSUB_JSON=1)
-                                parsed_data = json.loads(data)
+                    if result:
+                        for stream, messages in result:
+                            for message_id, fields in messages:
+                                last_id = message_id
                                 
-                                # Send structured log event
-                                yield {
-                                    "data": json.dumps({
-                                        "type": "log",
-                                        "data": {
-                                            "level": "INFO",
-                                            "message": parsed_data.get("msg", data),
-                                            "source": parsed_data.get("agent_name", "browser-agent"),
-                                            "request_id": parsed_data.get("request_id", request_id),
-                                            "timestamp": parsed_data.get("timestamp", datetime.datetime.now().timestamp()),
-                                            "log_source": parsed_data.get("source", "logger")
-                                        },
-                                        "timestamp": datetime.datetime.now().isoformat(),
-                                        "channel": redis_channel
-                                    })
-                                }
-                            except (json.JSONDecodeError, TypeError):
-                                # Handle plain text messages
-                                yield {
-                                    "data": json.dumps({
-                                        "type": "log",
-                                        "data": {
-                                            "level": "INFO",
-                                            "message": str(data),
-                                            "source": "browser-agent",
-                                            "request_id": request_id,
-                                            "log_source": "text"
-                                        },
-                                        "timestamp": datetime.datetime.now().isoformat(),
-                                        "channel": redis_channel
-                                    })
-                                }
+                                # Extract message data from Redis Stream
+                                # Agent stores logs in 'msg' field, not 'message'
+                                message_data = fields.get('msg', '') or fields.get('message', '')
+                                
+                                try:
+                                    # Try to parse as JSON
+                                    if message_data:
+                                        parsed_data = json.loads(message_data)
+                                        
+                                        # Send structured log event (same format as batch_id endpoint)
+                                        yield {
+                                            "data": json.dumps({
+                                                "type": "log",
+                                                "data": {
+                                                    "level": "INFO",
+                                                    "message": parsed_data.get("msg", message_data),
+                                                    "source": parsed_data.get("agent_name", "browser-agent"),
+                                                    "request_id": parsed_data.get("request_id", request_id),
+                                                    "timestamp": parsed_data.get("timestamp", datetime.datetime.now().timestamp()),
+                                                    "log_source": parsed_data.get("source", "logger")
+                                                },
+                                                "timestamp": datetime.datetime.now().isoformat(),
+                                                "stream_key": stream_key,
+                                                "message_id": message_id
+                                            })
+                                        }
+                                except (json.JSONDecodeError, TypeError):
+                                    # Handle plain text messages
+                                    yield {
+                                        "data": json.dumps({
+                                            "type": "log",
+                                            "data": {
+                                                "level": "INFO",
+                                                "message": str(message_data),
+                                                "source": "browser-agent",
+                                                "request_id": request_id,
+                                                "log_source": "text"
+                                            },
+                                            "timestamp": datetime.datetime.now().isoformat(),
+                                            "stream_key": stream_key,
+                                            "message_id": message_id
+                                        })
+                                    }
                     else:
-                        # Send periodic heartbeat when no messages
+                        # Send periodic heartbeat when no new messages
                         yield {
                             "data": json.dumps({
                                 "type": "heartbeat",
@@ -233,14 +221,6 @@ async def stream_logs_by_request(request: Request, request_id: str):
                     "timestamp": datetime.datetime.now().isoformat()
                 })
             }
-        finally:
-            # Clean up Redis subscription
-            if pubsub:
-                try:
-                    pubsub.unsubscribe(redis_channel)
-                    pubsub.close()
-                except Exception as e:
-                    print(f"Error cleaning up Redis subscription for {request_id}: {e}")
 
     return EventSourceResponse(event_generator())
 

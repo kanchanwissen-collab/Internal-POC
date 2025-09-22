@@ -66,7 +66,7 @@ async def process_simplified_preauth(request_body: SimplifiedPreAuthRequest):
                 message=f"N8N workflow failed to trigger: {n8n_response.message}"
             )
         
-        logging("n8n triggered successfully")    
+        logging.info("n8n triggered successfully")    
         return PreAuthResponse(
             req_id=request_body.request_id,
             status="success",
