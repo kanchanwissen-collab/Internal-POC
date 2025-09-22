@@ -1,22 +1,22 @@
 services:
   browser-use-serverless:
     build: .
-    container_name: browser-use-serverless2
+    container_name: browser-use-serverless
     ports:
       - "8080:8080"
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - CAPSOLVER_API_KEY=${CAPSOLVER_API_KEY}
-      - REDIS_URL=redis://redis2:6379/0
+      - REDIS_URL=redis://redis:6379/0
       - REDIS_STREAM=browser_use_logs
-      - REDIS_STREAM_MAXLEN= "1000"
+      - REDIS_STREAM_MAXLEN="1000"
     depends_on:
       - redis
     networks:
       - app-network
   redis:
     image: redis:latest
-    container_name: redis2
+    container_name: redis
     ports:
       - "6379:6379"
     volumes:

@@ -133,14 +133,13 @@ def cleanup_session_processes(session_id: str):
                 proc.wait(timeout=5)  # Wait up to 5 seconds for process to die
         except Exception as e:
             log.warning(f"Error force killing process {proc.pid}: {e}")
-    
-    # Additional cleanup: kill any remaining processes using the specific ports
+      # Additional cleanup: kill any remaining processes using the specific ports
     try:
         # Get the ports for this session
-        from utility.constants import SESSION_TO_VNC_PORT, SESSION_TO_WEB_PORT
-        if session_id in SESSION_TO_VNC_PORT:
-            vnc_port = SESSION_TO_VNC_PORT[session_id]
-            web_port = SESSION_TO_WEB_PORT[session_id]
+        from utility.constants import SESSION_ID_TO_VNC_PORT, SESSION_ID_TO_WEB_PORT
+        if session_id in SESSION_ID_TO_VNC_PORT:
+            vnc_port = SESSION_ID_TO_VNC_PORT[session_id]
+            web_port = SESSION_ID_TO_WEB_PORT[session_id]
             
             # Kill processes using VNC port
             subprocess.run([

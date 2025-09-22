@@ -20,17 +20,17 @@ from browser_use.agent.service import Agent
 from browser_use.llm.google.chat import ChatGoogle
 
 from services.displayAllocation import cleanup_session_processes
+from routers.sessions import is_session_active, clear_current_session
 from utility.customController import tools
 from utility.constants import (
     SESSION_ID_TO_AGENT_MAP,
-    SESSIONS_MAP,
     SESSION_ID_TO_BROWSER_SESSION,
     USED_DISPLAY_NUMS,
     USED_VNC_PORTS,
     USED_WEB_PORTS,
-    SESSION_TO_DISPLAY_NUM,
-    SESSION_TO_VNC_PORT,
-    SESSION_TO_WEB_PORT,
+    SESSION_ID_TO_DISPLAY_NUM,
+    SESSION_ID_TO_VNC_PORT,
+    SESSION_ID_TO_WEB_PORT,
 )
 
 # ---------- env ----------
@@ -232,8 +232,9 @@ async def create_agent(body: AgentCreateRequest):
             task_id=session_id,
             browser_session=browser_session,
             llm=ChatGoogle(temperature=0.3, model="gemini-2.5-pro", api_key=api_key),
-            page_extraction_llm=ChatGoogle(temperature=0.2, model="gemini-2.5-pro", api_key=api_key),
+		    page_extraction_llm=ChatGoogle(temperature=0.2, model="gemini-2.5-pro", api_key=api_key),
 
+            
             extend_system_message="""
 You are a powerful browser agent that fills the preauth form.
 Tools you have access to:
@@ -324,8 +325,10 @@ Rules during form filling:
         )
 
     except HTTPException:
+        # rethrow fastapi exceptions as-is
         raise
     except Exception as e:
+        # generic 500 with message
         raise HTTPException(status_code=500, detail=f"Failed to start/run agent: {str(e)}")
     finally:
         # restore std streams
@@ -343,34 +346,46 @@ Rules during form filling:
         except Exception:
             pass
 
+        # best-effort cleanup of processes/ports/maps
+        
+
+        # drop agent map entry
+        
+
+        # free display/vnc/web ports (guards)
+        
+
 
 @router.get("/agents/{session_id}/stop")
 async def stop_agent(session_id: str):
     try:
-        if not SESSIONS_MAP.get(session_id, False):
+        if not is_session_active(session_id):
             raise HTTPException(status_code=400, detail="Invalid or inactive session ID")
 
         agent: Optional[Agent] = SESSION_ID_TO_AGENT_MAP.get(session_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
 
+        # cooperative stop
         try:
             agent.stop()
         except Exception:
+            # ignore if the underlying lib has different semantics
             pass
 
+        # cleanup
         try:
             cleanup_session_processes(str(session_id))
         except Exception:
             pass
 
         SESSION_ID_TO_AGENT_MAP.pop(session_id, None)
-        SESSIONS_MAP[session_id] = False
+        clear_current_session()  # Clear the current session
         SESSION_ID_TO_BROWSER_SESSION.pop(session_id, None)
 
-        display_num = SESSION_TO_DISPLAY_NUM.pop(session_id, None)
-        vnc_port = SESSION_TO_VNC_PORT.pop(session_id, None)
-        web_port = SESSION_TO_WEB_PORT.pop(session_id, None)
+        display_num = SESSION_ID_TO_DISPLAY_NUM.pop(session_id, None)
+        vnc_port = SESSION_ID_TO_VNC_PORT.pop(session_id, None)
+        web_port = SESSION_ID_TO_WEB_PORT.pop(session_id, None)
         if display_num is not None:
             USED_DISPLAY_NUMS[str(display_num)] = False
         if vnc_port is not None:
@@ -389,7 +404,7 @@ async def stop_agent(session_id: str):
 @router.get("/agents/{session_id}/pause")
 async def pause_agent(session_id: str):
     try:
-        if not SESSIONS_MAP.get(session_id, False):
+        if not is_session_active(session_id):
             raise HTTPException(status_code=400, detail="Invalid or inactive session ID")
 
         agent: Optional[Agent] = SESSION_ID_TO_AGENT_MAP.get(session_id)
@@ -412,7 +427,7 @@ async def pause_agent(session_id: str):
 @router.get("/agents/{session_id}/resume")
 async def resume_agent(session_id: str):
     try:
-        if not SESSIONS_MAP.get(session_id, False):
+        if not is_session_active(session_id):
             raise HTTPException(status_code=400, detail="Invalid or inactive session ID")
 
         agent: Optional[Agent] = SESSION_ID_TO_AGENT_MAP.get(session_id)
@@ -433,8 +448,11 @@ async def resume_agent(session_id: str):
 
 
 def _serialize_state(state: Any) -> Dict[str, Any]:
-    """Helper to expose agent state in a JSON-safe format."""
+    """
+    Helper in case you want to expose state in a stable, JSON-safe format.
+    """
     try:
+        # if the Agent exposes a dict-like view
         if hasattr(state, "model_dump"):
             return state.model_dump()
         if hasattr(state, "dict"):
@@ -447,7 +465,7 @@ def _serialize_state(state: Any) -> Dict[str, Any]:
 @router.get("/agents/{session_id}/status")
 async def get_agent_status(session_id: str):
     try:
-        if not SESSIONS_MAP.get(session_id, False):
+        if not is_session_active(session_id):
             raise HTTPException(status_code=400, detail="Invalid or inactive session ID")
 
         agent: Optional[Agent] = SESSION_ID_TO_AGENT_MAP.get(session_id)

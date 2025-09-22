@@ -1,44 +1,52 @@
 from fastapi import APIRouter, HTTPException
 from services.displayAllocation import create_browser_session, cleanup_session_processes
 from utility.constants import (
-    SESSIONS_MAP, USED_DISPLAY_NUMS, USED_VNC_PORTS, USED_WEB_PORTS, 
-    SESSION_ID_TO_BROWSER_SESSION, SESSION_TO_VNC_PORT, SESSION_TO_WEB_PORT, SESSION_TO_DISPLAY_NUM,
-    BASE_VNC_PORT, BASE_WEB_PORT, BASE_DISPLAY_NUM
+    USED_DISPLAY_NUMS, USED_VNC_PORTS, USED_WEB_PORTS, 
+    SESSION_ID_TO_BROWSER_SESSION, SESSION_ID_TO_VNC_PORT, SESSION_ID_TO_WEB_PORT, SESSION_ID_TO_DISPLAY_NUM,
+    BASE_VNC_PORT, BASE_WEB_PORT, BASE_DISPLAY_NUM, generate_session_id
 )
 import os 
 
 router = APIRouter()
 
-def ensure_session_mappings():
-    """Ensure session mapping dictionaries are properly initialized"""
-    for i in range(10):
-        session_id = f"session_{i:02d}"
-        if session_id not in SESSION_TO_VNC_PORT:
-            SESSION_TO_VNC_PORT[session_id] = BASE_VNC_PORT + i
-        if session_id not in SESSION_TO_WEB_PORT:
-            SESSION_TO_WEB_PORT[session_id] = BASE_WEB_PORT + i
-        if session_id not in SESSION_TO_DISPLAY_NUM:
-            SESSION_TO_DISPLAY_NUM[session_id] = BASE_DISPLAY_NUM + i
+# Global variable to track the current active session
+current_session_id = None
+
+def is_session_active(session_id: str) -> bool:
+    """Check if a given session ID is the current active session"""
+    return current_session_id is not None and current_session_id == session_id
+
+def get_current_session_id() -> str | None:
+    """Get the current active session ID"""
+    return current_session_id
+
+def clear_current_session():
+    """Clear the current active session - used by agent cleanup"""
+    global current_session_id
+    current_session_id = None
 
 @router.post("/sessions")
 async def create_session():
+    global current_session_id
+    
     try:
-        # Ensure mappings are properly initialized
-        ensure_session_mappings()
+        # Check if there's already an active session
+        if current_session_id is not None:
+            raise HTTPException(status_code=503, detail="Session is already in use. Only one session is supported.")
         
-        # Find the first free session in the SESSIONS_MAP
-        free_session_id = next((sid for sid, used in SESSIONS_MAP.items() if not used), None)
-        if not free_session_id:
-            raise HTTPException(status_code=503, detail="No free sessions available")
+        # Generate a new random session ID
+        session_id = generate_session_id()
+        current_session_id = session_id
         
-        # Mark session as used
-        SESSIONS_MAP[free_session_id] = True
-        session_id = free_session_id
+        # Assign fixed ports and display for the single session
+        vnc_port = BASE_VNC_PORT
+        web_port = BASE_WEB_PORT 
+        display_num = BASE_DISPLAY_NUM
         
-        # Get predefined ports and display number for this session
-        vnc_port = SESSION_TO_VNC_PORT[session_id]
-        web_port = SESSION_TO_WEB_PORT[session_id] 
-        display_num = SESSION_TO_DISPLAY_NUM[session_id]
+        # Store the mappings
+        SESSION_ID_TO_VNC_PORT[session_id] = vnc_port
+        SESSION_ID_TO_WEB_PORT[session_id] = web_port
+        SESSION_ID_TO_DISPLAY_NUM[session_id] = display_num
         
         # Mark the corresponding ports and display as used
         USED_VNC_PORTS[str(vnc_port)] = True
@@ -63,8 +71,8 @@ async def create_session():
         raise
     except Exception as e:
         # Cleanup in case of error
-        if 'session_id' in locals():
-            SESSIONS_MAP[session_id] = False
+        if current_session_id:
+            current_session_id = None
             if 'vnc_port' in locals():
                 USED_VNC_PORTS[str(vnc_port)] = False
             if 'web_port' in locals(): 
@@ -72,26 +80,30 @@ async def create_session():
             if 'display_num' in locals():
                 USED_DISPLAY_NUMS[str(display_num)] = False
         raise HTTPException(status_code=500, detail=str(e))
+
 @router.delete("/sessions/{session_id}")
 async def delete_session(session_id: str):
+    global current_session_id
+    
     try:
-        # Ensure mappings are properly initialized
-        ensure_session_mappings()
-        
-        if session_id not in SESSIONS_MAP or not SESSIONS_MAP[session_id]:
-            raise HTTPException(status_code=404, detail="Session ID not found or already free")
+        if current_session_id is None or current_session_id != session_id:
+            raise HTTPException(status_code=404, detail="Session not found or not active")
 
-        # Mark the session as free
-        SESSIONS_MAP[session_id] = False
+        # Clear the current session
+        current_session_id = None
 
-        # Free up the associated ports and display numbers using predefined mapping
-        vnc_port = SESSION_TO_VNC_PORT[session_id]
-        web_port = SESSION_TO_WEB_PORT[session_id]
-        display_num = SESSION_TO_DISPLAY_NUM[session_id]
+        # Get the associated ports and display numbers
+        vnc_port = SESSION_ID_TO_VNC_PORT.get(session_id)
+        web_port = SESSION_ID_TO_WEB_PORT.get(session_id)
+        display_num = SESSION_ID_TO_DISPLAY_NUM.get(session_id)
 
-        USED_DISPLAY_NUMS[str(display_num)] = False
-        USED_VNC_PORTS[str(vnc_port)] = False
-        USED_WEB_PORTS[str(web_port)] = False
+        # Free up the ports and display
+        if vnc_port:
+            USED_VNC_PORTS[str(vnc_port)] = False
+        if web_port:
+            USED_WEB_PORTS[str(web_port)] = False
+        if display_num:
+            USED_DISPLAY_NUMS[str(display_num)] = False
 
         # Close the browser session if it exists
         browser_session = SESSION_ID_TO_BROWSER_SESSION.get(session_id)
@@ -101,6 +113,14 @@ async def delete_session(session_id: str):
             except Exception as e:
                 print(f"Error stopping browser session: {e}")
             del SESSION_ID_TO_BROWSER_SESSION[session_id]
+
+        # Clean up session mappings
+        if session_id in SESSION_ID_TO_VNC_PORT:
+            del SESSION_ID_TO_VNC_PORT[session_id]
+        if session_id in SESSION_ID_TO_WEB_PORT:
+            del SESSION_ID_TO_WEB_PORT[session_id]
+        if session_id in SESSION_ID_TO_DISPLAY_NUM:
+            del SESSION_ID_TO_DISPLAY_NUM[session_id]
 
         # Clean up all session processes (Xvfb, x11vnc, websockify)
         cleanup_session_processes(session_id)
@@ -113,27 +133,23 @@ async def delete_session(session_id: str):
 
 @router.get("/sessions")
 async def list_sessions():
-    """Get status of all sessions"""
+    """Get status of active sessions"""
     try:
-        # Ensure mappings are properly initialized
-        ensure_session_mappings()
+        sessions = []
         
-        sessions_status = []
-        for session_id, is_active in SESSIONS_MAP.items():
-            # Defensive programming: check if session_id exists in mapping dictionaries
-            if (session_id in SESSION_TO_VNC_PORT and 
-                session_id in SESSION_TO_WEB_PORT and 
-                session_id in SESSION_TO_DISPLAY_NUM):
-                sessions_status.append({
-                    "session_id": session_id,
-                    "active": is_active,
-                    "vnc_port": SESSION_TO_VNC_PORT[session_id],
-                    "web_port": SESSION_TO_WEB_PORT[session_id],
-                    "display_num": SESSION_TO_DISPLAY_NUM[session_id]
-                })
-            else:
-                # Log the issue and skip this session
-                print(f"Warning: Session {session_id} not found in port mappings")
-        return {"sessions": sessions_status}
+        if current_session_id is not None:
+            vnc_url = f"{os.getenv('VNC_BASE_URL', 'http://localhost:8080')}/sessions/{current_session_id}/vnc/vnc.html?autoconnect=1"
+            
+            session_info = {
+                "session_id": current_session_id,
+                "active": True,
+                "vnc_url": vnc_url,
+                "vnc_port": SESSION_ID_TO_VNC_PORT.get(current_session_id),
+                "web_port": SESSION_ID_TO_WEB_PORT.get(current_session_id),
+                "display_num": SESSION_ID_TO_DISPLAY_NUM.get(current_session_id)
+            }
+            sessions.append(session_info)
+        
+        return {"sessions": sessions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
