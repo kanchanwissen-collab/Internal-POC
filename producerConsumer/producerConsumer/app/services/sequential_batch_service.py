@@ -144,14 +144,17 @@ class SequentialBatchService:
                 patient_name = payload_dict["patientfirstname"]+" "+payload_dict["patientlastname"]
                 await mongodb_service.batch_requests_collection.insert_one(
                     {
-                        "batch_id": batch_id,
+                         "batch_id": batch_id,
                         "sequence_no": str(i + 1),
                         "total_count": str(request_count),
                         "request_id": str(request_id),
                         "patient_name": patient_name,
                         "dob": payload_dict["patientdateofbirth"],
-                        "appointment_id":payload_dict["appointmentid"],
-                        
+                        "appointment_id": payload_dict["appointmentid"],
+                        "person_no": payload_dict.get("personnumber"),
+                        "date_of_service": payload_dict.get("appointmentdate"),
+                        "visit_reason": "Office Visit",
+                        "specialty": payload_dict.get("clientspecialty"),
                         "vendor": vendor,
                         "agent_type": "prior_auth"
                     }

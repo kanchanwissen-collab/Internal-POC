@@ -272,13 +272,24 @@ class MongoDBService:
                 formatted_request = {
                     "request_id": doc.get("requestId"),
                     "batch_id": request_details.get("batch_id", "Unknown") if request_details else "Unknown",
+                    "sequence_no": request_details.get("sequence_no", "Unknown") if request_details else "Unknown",
+                    "total_count": request_details.get("total_count", "Unknown") if request_details else "Unknown",
                     "patient_name": request_details.get("patient_name", "Unknown") if request_details else "Unknown",
+                    "dob": request_details.get("dob", "Unknown") if request_details else "Unknown",
+                    "appointment_id": request_details.get("appointment_id", "Unknown") if request_details else "Unknown",
+                    "person_no": request_details.get("person_no", "Unknown") if request_details else "Unknown",
+                    "date_of_service": request_details.get("date_of_service", "Unknown") if request_details else "Unknown",
+                    "visit_reason": request_details.get("visit_reason", "Unknown") if request_details else "Unknown",
+                    "specialty": request_details.get("specialty", "Unknown") if request_details else "Unknown",
                     "payer_id": request_details.get("vendor", "Unknown") if request_details else "Unknown",
+                    "vendor": request_details.get("vendor", "Unknown") if request_details else "Unknown",
+                    "agent_type": request_details.get("agent_type", "Unknown") if request_details else "Unknown",
                     "status": map_status_for_frontend(doc.get("status", "unknown")),
                     "created_at": doc.get("lastUpdatedAt"),
                     "last_updated": doc.get("lastUpdatedAt"),
                     "current_step": doc.get("remarks"),
                     "user_actions_pending": 0  # Default value
+                
                 }
                 formatted_requests.append(formatted_request)
             

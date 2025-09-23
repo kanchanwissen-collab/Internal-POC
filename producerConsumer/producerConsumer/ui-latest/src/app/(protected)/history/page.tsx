@@ -3,27 +3,58 @@
 import { useState, useEffect, useRef } from "react"
 import { useSession } from "next-auth/react"
 import toast from 'react-hot-toast'
+import { ApiResponse, ApiRequest } from "@/types/api";
+import { Suspense, useCallback } from "react"
+
+// --- Live Log Modal Component ---
+const LogViewer = ({ sessionId }: { sessionId: string }) => {
+    const [logs, setLogs] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const logsEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [logs]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/stream-logs/${sessionId}`);
+
+        eventSource.addEventListener(sessionId, (event) => {
+            setLogs(prevLogs => [...prevLogs, event.data]);
+        });
+
+        eventSource.onopen = () => {
+            setIsLoading(false);
+        };
+
+        eventSource.onerror = () => {
+            setIsLoading(false);
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    }, [sessionId]);
+
+    return (
+        <div className="bg-gray-900 text-white font-mono text-xs rounded-lg p-2 h-[50vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-bold">Logs for Session: <span className="text-green-400">{sessionId}</span></h2>
+                {isLoading && <div className="text-gray-400">Loading...</div>}
+            </div>
+            <div className="space-y-1">
+                {logs.map((log, index) => (
+                    <div key={index}>{log}</div>
+                ))}
+                <div ref={logsEndRef} />
+            </div>
+        </div>
+    );
+};
 
 type SessionStatus = 'submitted' | 'queued' | 'expired' | 'running' | 'failed' | 'approved' | 'denied' | 'manual-action';
-
-// New type for the API response
-interface AgenticPlatformApiResponse {
-    data: AgenticPlatformApiItem[];
-    message: string;
-    status: string;
-}
-
-interface AgenticPlatformApiItem {
-    batch_id: string | null;
-    created_at: string;
-    current_step: string | null;
-    last_updated: string;
-    patient_name: string;
-    payer_id: string;
-    request_id: string;
-    status: string;
-    user_actions_pending: number;
-}
 
 interface Session {
     id: string;
@@ -43,6 +74,11 @@ interface Session {
     serviceType?: string;
     memberId?: string;
     appointmentId?: string;
+    // Add new fields:
+    totalCount?: string;
+    apiPatientName?: string;
+    apiDob?: string;
+    apiAppointmentId?: string;
 }
 
 const mockSessions: Session[] = [
@@ -114,6 +150,8 @@ export default function HistoryPage() {
     const [agentTypeFilter, setAgentTypeFilter] = useState<Session['agentType'] | 'all'>('all')
     const [dateFilter, setDateFilter] = useState<'all' | 'today' | 'week' | 'month'>('all')
     const toastShownRef = useRef(false)
+    const [noVncModal, setNoVncModal] = useState<{ open: boolean, session: Session | null }>({ open: false, session: null })
+    const [liveLogModal, setLiveLogModal] = useState<{ open: boolean, session: Session | null }>({ open: false, session: null });
 
     // Simulate loading sessions data
     useEffect(() => {
@@ -122,47 +160,39 @@ export default function HistoryPage() {
             toast.dismiss('agent-sessions-loaded')
 
             try {
-                // Fetch data from agentic-platform endpoint
-                console.log('Fetching from agentic-platform endpoint...');
-                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-                const dashboardResponse = await fetch(`${apiUrl}/api/v1/agentic-platform/prior-auths/requests`);
-                console.log('Agentic Platform Response status:', dashboardResponse.status);
-                
-                if (!dashboardResponse.ok) {
-                    throw new Error(`Agentic Platform API failed: ${dashboardResponse.status}`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/agentic-platform/prior-auths/requests`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-                
-                const agenticPlatformData = await dashboardResponse.json();
-                console.log('Agentic Platform API Response:', agenticPlatformData);
-                
-                // Extract the data array from the response
-                const requestsArray = agenticPlatformData.data || [];
-                
-                // Map data from agentic platform API
-                const formattedSessions: Session[] = requestsArray.map((req: AgenticPlatformApiItem) => {
-                    
-                    return {
-                        id: req.request_id,
-                        sessionId: req.batch_id || req.request_id, // Use actual batch_id if available, fallback to request_id
-                        status: (req.status as SessionStatus) || 'queued',
-                        createdAt: req.created_at || new Date().toISOString(),
-                        lastActivity: req.last_updated || req.created_at || new Date().toISOString(),
-                        patientName: req.patient_name || "Unknown",
-                        dateOfBirth: "-",
-                        providerName: "-",
-                        serviceType: "-",
-                        memberId: "-",
-                        appointmentId: "-",
-                        agentType: 'PRIOR_AUTH',
-                        vendor: req.payer_id || "Unknown",
-                        sequence_no: "1", // Default sequence number
-                        request_id: req.request_id,
-                        batch_id: req.batch_id || "Unknown", // Use actual batch_id from API
-                        manual_actions: [], // Empty array as fallback
-                    };
-                });
-                
-                console.log('Final merged sessions:', formattedSessions);
+                const result: ApiResponse = await response.json();
+
+                const formattedSessions: Session[] = result.data.map((req: ApiRequest) => ({
+                    id: req.request_id,
+                    sessionId: req.batch_id,
+                    status: req.status || req.status_data?.status || "-",
+                    createdAt: req.manual_actions?.[0]?.action_at || new Date().toISOString(),
+                    lastActivity: req.manual_actions?.[0]?.action_at || new Date().toISOString(),
+                    patientName: req.patient_name || "-",
+                    dateOfBirth: req.dob || "-",
+                    providerName: "-", // update if available
+                    serviceType: "-",  // update if available
+                    memberId: req.person_no || "-", // <-- NEW FIELD
+                    appointmentId: req.appointment_id || "-",
+                    agentType: req.agent_type?.toUpperCase() === "PRIOR_AUTH" ? "PRIOR_AUTH" : "general",
+                    vendor: req.vendor,
+                    sequence_no: req.sequence_no,
+                    request_id: req.request_id,
+                    batch_id: req.batch_id,
+                    manual_actions: req.manual_actions,
+                    // new fields
+                    totalCount: req.total_count || "-",
+                    apiPatientName: req.patient_name || "-",
+                    apiDob: req.dob || "-",
+                    apiAppointmentId: req.appointment_id || "-",
+                    dateOfService: req.date_of_service || "-", // <-- NEW FIELD
+                    visitReason: req.visit_reason || "-",      // <-- NEW FIELD
+                    specialty: req.specialty || "-",
+                }));
 
                 setSessions(formattedSessions);
             } catch (error) {
@@ -173,19 +203,18 @@ export default function HistoryPage() {
                 setIsLoading(false);
             }
 
-            // Show success message when sessions are loaded (only once)
-            if (!toastShownRef.current) {
-                const runningCount = sessions.filter(session => session.status === 'running').length
-                toast.success(`📊 Loaded ${sessions.length} history sessions (${runningCount} running)`, {
-                    duration: 3000,
-                    id: 'history-sessions-loaded'
-                })
-                toastShownRef.current = true
-            }
+            // ...existing code...
         }
 
-        fetchSessions()
-    }, [])
+        fetchSessions();
+
+        // Poll every 10 seconds
+        const intervalId = setInterval(fetchSessions, 10000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
     const getStatusColor = (status: Session['status']) => {
         switch (status) {
@@ -289,68 +318,30 @@ export default function HistoryPage() {
     }
 
     const handleLogView = (sessionItem: Session) => {
-        const query = new URLSearchParams({
-            status: sessionItem.status,
-            patientName: sessionItem.patientName || 'N/A',
-            providerName: sessionItem.providerName || 'N/A',
-            serviceType: sessionItem.serviceType || 'N/A',
-            agentType: getAgentTypeLabel(sessionItem.agentType),
-            createdAt: sessionItem.createdAt,
-            lastActivity: sessionItem.lastActivity,
-            request_id: sessionItem.request_id || '',
-            batch_id: sessionItem.batch_id || '',
-        }).toString();
-
-        // Always use sessionId as route parameter, query params determine live vs historical logs
-        const logUrl = `/logs/${sessionItem.sessionId}?${query}`;
-        window.open(logUrl, '_blank');
+        // Convert all values to string for URLSearchParams
+        // const params: Record<string, string> = {};
+        // Object.entries(sessionItem).forEach(([key, value]) => {
+        //     if (value !== undefined && value !== null) {
+        //         params[key] = String(value);
+        //     }
+        // });
+        // const query = new URLSearchParams(params).toString();
+        // const logUrl = `/logs/${sessionItem.request_id}?${query}`;
+        // window.open(logUrl, '_blank');
+        setLiveLogModal({ open: true, session: sessionItem });
     };
+
+    const closeLiveLogModal = useCallback(() => setLiveLogModal({ open: false, session: null }), []);
 
     const handleNoVNCConnect = (sessionItem: Session) => {
         if (sessionItem.status !== 'manual-action' && sessionItem.status !== 'expired') {
             toast.error(`Cannot connect to ${sessionItem.status} session`)
             return
         }
-
-        if (sessionItem.status === 'manual-action') {
-            toast(`⚠️ Session requires manual action - connecting anyway`, {
-                icon: '👨‍💼',
-                duration: 4000,
-                style: {
-                    background: '#FEF3C7',
-                    color: '#92400E',
-                }
-            })
-        }
-
-        setConnectingSession(sessionItem.id)
-        toast.loading(`Connecting to session ${sessionItem.sessionId}...`, {
-            id: `connect-${sessionItem.id}`,
-            duration: 2000
-        })
-
-        // Simulate connection process
-        setTimeout(() => {
-            // In a real application, this would open the noVNC viewer
-            // For now, we'll just simulate opening a new window
-            const noVncUrl = `https://novnc.example.com/vnc.html?host=session-${sessionItem.id}&port=5900&autoconnect=true`
-
-            try {
-                window.open(noVncUrl, '_blank', 'width=1024,height=768,resizable=yes,scrollbars=yes')
-                toast.success(`Successfully connected to session ${sessionItem.sessionId}`, {
-                    id: `connect-${sessionItem.id}`,
-                    duration: 3000
-                })
-            } catch (_error) {
-                toast.error(`Failed to open noVNC connection`, {
-                    id: `connect-${sessionItem.id}`,
-                    duration: 4000
-                })
-            }
-
-            setConnectingSession(null)
-        }, 2000)
+        setNoVncModal({ open: true, session: sessionItem })
     }
+
+    const closeNoVncModal = () => setNoVncModal({ open: false, session: null })
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleString()
@@ -497,23 +488,156 @@ export default function HistoryPage() {
     }
 
     return (
-        <div className="container-fluid px-4 space-y-6">
+        <div className="container-fluid px-1 py-1 space-y-2">
+            {/* Live Log Modal */}
+            {liveLogModal.open && liveLogModal.session && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-transparent"
+                    onClick={closeLiveLogModal}
+                >
+                    <div
+                        className="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-4xl mx-auto p-4"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="flex justify-between items-center mb-2">
+                            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Session Details</h1>
+                            <button
+                                className="text-gray-400 hover:text-gray-700 text-xl"
+                                onClick={closeLiveLogModal}
+                                title="Close"
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg p-2 mb-2">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                                <div><strong>Patient Name:</strong> {liveLogModal.session.patientName}</div>
+                                <div><strong>Date of Birth:</strong> {liveLogModal.session.dateOfBirth}</div>
+                                <div><strong>Provider Name:</strong> {liveLogModal.session.providerName}</div>
+                                <div><strong>Request ID:</strong> {liveLogModal.session.request_id}</div>
+                                <div><strong>Service Type:</strong> {liveLogModal.session.serviceType}</div>
+                                <div><strong>Member ID:</strong> {liveLogModal.session.memberId}</div>
+                                <div><strong>Appointment ID:</strong> {liveLogModal.session.appointmentId}</div>
+                                <div><strong>Status:</strong> {liveLogModal.session.status}</div>
+                                <div><strong>Agent Type:</strong> {liveLogModal.session.agentType}</div>
+                                <div><strong>Vendor:</strong> {liveLogModal.session.vendor}</div>
+                                <div><strong>Batch ID:</strong> {liveLogModal.session.batch_id}</div>
+                                {/* <div><strong>Manual Actions:</strong> {JSON.stringify(liveLogModal.session.manual_actions)}</div> */}
+                                <div><strong>Created At:</strong> {liveLogModal.session.createdAt ? new Date(liveLogModal.session.createdAt).toLocaleString() : 'N/A'}</div>
+                                <div><strong>Last Activity:</strong> {liveLogModal.session.lastActivity ? new Date(liveLogModal.session.lastActivity).toLocaleString() : 'N/A'}</div>
+                            </div>
+                        </div>
+                        <Suspense fallback={<div>Loading logs...</div>}>
+                            <LogViewer sessionId={liveLogModal.session.request_id} />
+                        </Suspense>
+                    </div>
+                </div>
+            )}
+            {/* Modal for noVNC */}
+            {noVncModal.open && noVncModal.session && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-sm"
+                    onClick={closeNoVncModal}
+                >
+                    <div
+                        className="relative bg-white rounded-lg shadow-lg w-full max-w-5xl mx-auto"
+                        onClick={e => e.stopPropagation()}
+                    >         {/* Warning Banner */}
+                        <div className="w-full bg-yellow-200 text-yellow-900 px-4 py-2 flex items-center whitespace-nowrap overflow-hidden rounded-t-lg">
+                            {/* Better warning icon */}
+                            <svg className="w-5 h-5 mr-2 text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 19a2 2 0 01-1.73 1H4.73A2 2 0 013 19l7.29-12.29a2 2 0 013.42 0L21 19z" />
+                            </svg>
+                            <div className="font-semibold text-xs">
+                                After filling details, <b>Click the Submit Button on the top-right</b> and <b>not the continue button in the below screen</b>.
+                            </div>
+                        </div>
+                        {/* Header with session details and Submit button */}
+                        <div className="flex justify-between items-start px-4 py-3 border-b border-gray-200">
+                            <div className="w-full">
+                                <div className="font-bold text-lg text-gray-900">Session Details</div>
+                                <div className="text-xs text-gray-600 mt-1">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                        <div><b>Patient:</b> {noVncModal.session.apiPatientName}</div>
+                                        <div><b>DOB:</b> {noVncModal.session.apiDob}</div>
+                                        <div><b>Vendor:</b> {noVncModal.session.vendor}</div>
+                                        <div><b>Request ID:</b> {noVncModal.session.request_id}</div>
+                                        <div><b>Appointment ID:</b> {noVncModal.session.appointmentId}</div>
+                                        <div><b>Session ID:</b> {noVncModal.session.sessionId}</div>
+                                        <div><b>Status:</b> {noVncModal.session.status}</div>
+                                        <div><b>Agent Type:</b> {noVncModal.session.agentType}</div>
+                                        <div><b>Sequence No:</b> {noVncModal.session.sequence_no}</div>
+                                        <div><b>Batch ID:</b> {noVncModal.session.batch_id}</div>
+                                        <div><b>Patient Name:</b> {noVncModal.session.patientName}</div>
+                                        <div><b>Date of Birth:</b> {noVncModal.session.dateOfBirth}</div>
+                                        <div><b>Provider Name:</b> {noVncModal.session.providerName}</div>
+                                        <div><b>Service Type:</b> {noVncModal.session.serviceType}</div>
+                                        <div><b>Member ID:</b> {noVncModal.session.memberId}</div>
+                                        <div><b>Total Count:</b> {noVncModal.session.totalCount}</div>
+                                        <div><b>API Patient Name:</b> {noVncModal.session.apiPatientName}</div>
+                                        <div><b>API DOB:</b> {noVncModal.session.apiDob}</div>
+                                        <div><b>API Appointment ID:</b> {noVncModal.session.apiAppointmentId}</div>
+                                        <div><b>Created At:</b> {noVncModal.session.createdAt ? new Date(noVncModal.session.createdAt).toLocaleString() : 'N/A'}</div>
+                                        <div><b>Last Activity:</b> {noVncModal.session.lastActivity ? new Date(noVncModal.session.lastActivity).toLocaleString() : 'N/A'}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-end gap-2">
+                                <div className="flex gap-2">
+                                    <button
+                                        className="px-4 py-1 bg-indigo-600 text-white rounded font-semibold hover:bg-indigo-700 transition"
+                                        onClick={() => {
+                                            toast.success("Submitted!");
+                                            closeNoVncModal();
+                                        }}
+                                    >
+                                        Submit
+                                    </button>
+                                    <button
+                                        className="px-4 py-1 bg-red-500 text-white rounded font-semibold hover:bg-red-600 transition"
+                                        onClick={() => {
+                                            toast("Discarded", { icon: "🗑️" });
+                                            closeNoVncModal();
+                                        }}
+                                    >
+                                        Discard
+                                    </button>
+                                </div>
+                                <button
+                                    className="text-gray-400 hover:text-gray-700 text-xl"
+                                    onClick={closeNoVncModal}
+                                    title="Close"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        </div>
+                        {/* noVNC Screen Placeholder */}
+                        <div className="p-4">
+                            <div className="w-full h-[32rem] bg-gray-100 rounded flex items-center justify-center text-gray-400 border border-dashed border-gray-300">
+                                {/* Replace this with actual noVNC iframe or component */}
+                                <span className="text-lg">[noVNC Screen Here]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 w-full">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">History</h1>
-                    <p className="text-gray-600 dark:text-gray-300 mt-2">
+                    <h1 className="text-lg font-bold text-gray-900 dark:text-white">History</h1>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                         Monitor and review sessions across different departments
                     </p>
                 </div>
-                <div className="flex items-center space-x-4 mt-4 sm:mt-0">
+                <div className="flex items-center space-x-2 mt-2 sm:mt-0">
                     {/* Date Filter */}
-                    <div className="flex items-center space-x-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Filter by Date:</label>
+                    <div className="flex items-center space-x-1">
+                        <label className="text-xs font-medium text-gray-700 dark:text-gray-300">Filter by Date:</label>
                         <select
                             value={dateFilter}
                             onChange={(e) => setDateFilter(e.target.value as 'all' | 'today' | 'week' | 'month')}
-                            className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="px-2 py-0.5 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         >
                             <option value="all">All Time</option>
                             <option value="today">Today</option>
@@ -526,17 +650,17 @@ export default function HistoryPage() {
             </div>
 
             {/* Agent Type Navigation */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 w-full">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 w-full">
                 {/* <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4"> Categories</h3> */}
-                <div className="flex flex-wrap gap-3 w-full">
+                <div className="flex flex-wrap gap-1 w-full">
                     <button
                         onClick={() => setAgentTypeFilter('all')}
-                        className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${agentTypeFilter === 'all'
+                        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium transition-colors ${agentTypeFilter === 'all'
                             ? 'bg-indigo-600 text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
                         </svg>
                         All  ({sessions.length})
@@ -544,7 +668,7 @@ export default function HistoryPage() {
 
                     <button
                         onClick={() => setAgentTypeFilter('PRIOR_AUTH')}
-                        className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${agentTypeFilter === 'PRIOR_AUTH'
+                        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium transition-colors ${agentTypeFilter === 'PRIOR_AUTH'
                             ? 'bg-blue-600 text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             }`}
@@ -600,168 +724,113 @@ export default function HistoryPage() {
             </div>
 
             {/* Statistics Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-2 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
                 {/* Total */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-gray-100 dark:bg-gray-700 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Total</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Total</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.length}</span>
                 </div>
-
                 {/* Queued */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-purple-50 dark:hover:bg-purple-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-purple-100 dark:bg-purple-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-purple-50 dark:hover:bg-purple-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-purple-100 dark:bg-purple-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Queued</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'queued').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Queued</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'queued').length}</span>
                 </div>
-
                 {/* Running */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-green-50 dark:hover:bg-green-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-green-50 dark:hover:bg-green-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Running</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'running').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Running</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'running').length}</span>
                 </div>
-
                 {/* Approved */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-green-50 dark:hover:bg-green-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-green-50 dark:hover:bg-green-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Approved</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'approved').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Approved</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'approved').length}</span>
                 </div>
-
                 {/* Denied */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-red-50 dark:hover:bg-red-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-red-100 dark:bg-red-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-red-50 dark:hover:bg-red-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-red-100 dark:bg-red-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Denied</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'denied').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Denied</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'denied').length}</span>
                 </div>
-
                 {/* Failed */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-red-50 dark:hover:bg-red-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-red-100 dark:bg-red-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-red-50 dark:hover:bg-red-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-red-100 dark:bg-red-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Failed</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'failed').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Failed</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'failed').length}</span>
                 </div>
-
                 {/* Manual Action */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-orange-50 dark:hover:bg-orange-900 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-orange-100 dark:bg-orange-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-orange-50 dark:hover:bg-orange-900 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-orange-100 dark:bg-orange-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Manual</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'manual-action').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Manual</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'manual-action').length}</span>
                 </div>
-
                 {/* Expired */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-3 hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 cursor-pointer">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="flex-shrink-0">
-                            <div className="w-6 h-6 bg-gray-100 dark:bg-gray-900 rounded-md flex items-center justify-center">
-                                <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8a1 1 0 012 0v3a1 1 0 01-2 0v-3zm1-4a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                                </svg>
-                            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 flex items-center justify-between hover:shadow-lg hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center space-x-2">
+                        <div className="w-7 h-7 bg-gray-100 dark:bg-gray-900 rounded-md flex items-center justify-center">
+                            <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8a1 1 0 012 0v3a1 1 0 01-2 0v-3zm1-4a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                            </svg>
                         </div>
-                        <div className="mt-2 min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">Expired</p>
-                            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                                {agentFilteredSessions.filter(session => session.status === 'expired').length}
-                            </p>
-                        </div>
+                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Expired</span>
                     </div>
+                    <span className="text-base font-semibold text-gray-900 dark:text-white">{agentFilteredSessions.filter(session => session.status === 'expired').length}</span>
                 </div>
             </div>
 
             {/* Sessions Table */}
             <div className="bg-white rounded-lg shadow overflow-hidden w-full">
-                <div className="px-6 py-4 border-b border-gray-200">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <h2 className="text-lg font-semibold text-gray-900">
+                <div className="px-2 py-2 border-b border-gray-200">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                        <h2 className="text-base font-semibold text-gray-900">
                             {agentTypeFilter === 'all' ? 'All Requests' : `${getAgentTypeLabel(agentTypeFilter)} Requests`}
                         </h2>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1">
                             <button
                                 onClick={() => setStatusFilter('all')}
                                 className={getFilterButtonClass('all')}
@@ -821,37 +890,53 @@ export default function HistoryPage() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                    <table className="min-w-full divide-y divide-gray-200 text-xs">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                {/* <th className="px-2 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Request ID
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-2 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Batch ID
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-2 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Sequence No
+                                </th> */}
+
+                                {/* <th className="px-2 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Total Count
+                                </th> */}
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Appointment ID
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Vendor
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Patient Name
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Agent Type
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    DOB
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Created
+
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Date of Service
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Last Activity
+
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Visit Reason
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Payer
+                                </th>
+
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
+                                    Specialty
+                                </th>
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Logs
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-1 py-1 text-left text-[10px] font-medium text-gray-500 uppercase tracking-wider">
                                     Actions
                                 </th>
                             </tr>
@@ -859,7 +944,7 @@ export default function HistoryPage() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             {filteredSessions.length === 0 ? (
                                 <tr>
-                                    <td colSpan={10} className="px-6 py-12 text-center">
+                                    <td colSpan={10} className="px-2 py-6 text-center">
                                         <div className="text-gray-500">
                                             <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -876,66 +961,78 @@ export default function HistoryPage() {
                             ) : (
                                 filteredSessions.map((sessionItem) => (
                                     <tr key={sessionItem.id} className={`${getRowBackgroundColor(sessionItem.status)}`}>
-                                        <td className="px-6 py-2 whitespace-nowrap">
-                                            <span className="text-sm font-mono text-gray-900">
+                                        {/* <td className="px-2 py-1 whitespace-nowrap">
+                                            <span className="text-xs font-mono text-gray-900">
                                                 {sessionItem.request_id || '-'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap">
-                                            <span className="text-sm font-mono text-gray-900">
+                                        <td className="px-2 py-1 whitespace-nowrap">
+                                            <span className="text-xs font-mono text-gray-900">
                                                 {sessionItem.batch_id || '-'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-2 py-1 whitespace-nowrap text-xs text-gray-900">
                                             {sessionItem.sequence_no || '-'}
+                                        </td> */}
+
+                                        {/* <td className="px-2 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.totalCount || '-'}
+                                        </td> */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.apiAppointmentId || '-'}
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                                        {/* Patient Name */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.apiPatientName || '-'}
+                                        </td>
+                                        {/* DOB */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.apiDob || '-'}
+                                        </td>
+                                        {/* Date of Service */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.dateOfService || '-'}
+                                        </td>
+                                        {/* Visit Reason */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.visitReason || 'Office Visit'}
+                                        </td>
+                                        {/* Payer (Vendor) */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
                                             {sessionItem.vendor || '-'}
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap">
-                                            <div className="flex items-center">
-                                                <div className="flex-shrink-0 h-6 w-6 text-gray-500">
-                                                    {getAgentTypeIcon(sessionItem.agentType)}
-                                                </div>
-                                                <div className="ml-2">
-                                                    <span className="text-sm font-medium text-gray-900">
-                                                        {getAgentTypeLabel(sessionItem.agentType)}
-                                                    </span>
-                                                </div>
-                                            </div>
+                                        {/* Specialty */}
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs text-gray-900">
+                                            {sessionItem.specialty || '-'}
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                                            {formatDate(sessionItem.createdAt)}
-                                        </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                                            {formatDate(sessionItem.lastActivity)}
-                                        </td>
-                                        <td className="px-6 py-2 whitespace-nowrap">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(sessionItem.status)}`}>
+                                        <td className="px-1 py-1 whitespace-nowrap">
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(sessionItem.status)}`}>
                                                 {getStatusIcon(sessionItem.status)}
                                                 <span className="ml-1 capitalize">
                                                     {sessionItem.status}
                                                 </span>
                                             </span>
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm font-medium">
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs font-medium">
+
                                             <button
                                                 onClick={() => handleLogView(sessionItem)}
-                                                disabled={sessionItem.status !== 'running'}
-                                                className={`inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md transition-colors disabled:opacity-50 ${sessionItem.status === 'running'
+                                                className={`inline-flex items-center px-2 py-1 border border-transparent text-xs leading-4 font-medium rounded-md transition-colors disabled:opacity-50 ${sessionItem.status === 'running'
                                                     ? 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
                                                     : 'text-gray-400 bg-gray-100 cursor-not-allowed'
                                                     }`}
                                             >
                                                 {sessionItem.status === 'running' ? 'Live Logs' : 'Logs'}
                                             </button>
+
+
                                         </td>
-                                        <td className="px-6 py-2 whitespace-nowrap text-sm font-medium">
+                                        <td className="px-1 py-1 whitespace-nowrap text-xs font-medium">
                                             <button
                                                 onClick={() => handleNoVNCConnect(sessionItem)}
                                                 disabled={connectingSession === sessionItem.id || (sessionItem.status !== 'manual-action' && sessionItem.status !== 'expired')}
-                                                className={`inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md transition-colors disabled:opacity-50 ${sessionItem.status === 'manual-action'
-                                                    ? 'text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                className={`inline-flex items-center px-2 py-1 border border-transparent text-xs leading-4 font-medium rounded-md transition-colors disabled:opacity-50 ${sessionItem.status === 'manual-action'
+                                                    ? 'text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
                                                     : sessionItem.status === 'expired'
                                                         ? 'text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
                                                         : 'text-gray-400 bg-gray-100 cursor-not-allowed'
@@ -943,17 +1040,21 @@ export default function HistoryPage() {
                                             >
                                                 {connectingSession === sessionItem.id ? (
                                                     <>
-                                                        <svg className="w-4 h-4 mr-2 animate-spin" fill="currentColor" viewBox="0 0 20 20">
+                                                        <svg className="w-3 h-3 mr-1 animate-spin" fill="currentColor" viewBox="0 0 20 20">
                                                             <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                                                         </svg>
                                                         Connecting...
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                                             <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
                                                         </svg>
-                                                        {sessionItem.status === 'expired' ? 'Re-Trigger' : 'Take Action'}
+                                                        {sessionItem.status === 'expired'
+                                                            ? 'Re-Trigger'
+                                                            : sessionItem.status === 'manual-action'
+                                                                ? 'Review'
+                                                                : 'Review'}
                                                     </>
                                                 )}
                                             </button>

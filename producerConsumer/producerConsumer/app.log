@@ -1111,3 +1111,216 @@ data
 2025-09-21 19:05:51,320 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
 2025-09-21 19:05:51,943 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
 2025-09-21 19:05:51,944 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:03:02,891 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:03:03,009 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:03:03,009 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:03:06,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:03:16,789 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:03:17,670 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:03:51,362 - app.services.mongodb_service - INFO - Request progress created for request 2914f507-f2c1-4e2f-937f-0d5ce5f66694 with status created
+2025-09-23 08:04:00,248 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:04:29,612 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:17:40,134 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:17:40,171 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:17:40,172 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:17:41,591 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:17:51,601 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:01,605 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:11,602 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:21,594 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:31,598 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:41,599 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:18:51,604 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:01,603 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:11,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:14,746 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:21,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:31,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:41,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:19:51,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:20:01,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:12,140 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:24:12,172 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:24:12,172 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:24:23,663 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:27,082 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:28,938 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:31,584 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:34,326 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:44,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:24:54,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:00,205 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:10,220 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:13,354 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:19,428 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:29,429 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:39,874 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:49,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:25:59,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:26:09,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:26:19,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:26:29,872 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:27:04,886 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:28:04,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:28:38,119 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:28:38,155 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:28:38,156 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:28:51,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:28:54,543 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:14,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:24,865 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:34,567 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:35,316 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:37,403 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:42,611 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:52,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:29:53,936 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:30:02,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:30:12,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:30:22,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:30:32,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:30:42,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:06,627 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:32:06,660 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:32:06,660 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:32:18,592 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:20,988 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:24,258 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:29,475 - app.services.mongodb_service - INFO - Request progress created for request 748f3881-30ff-4194-a9d3-90036a96cd3f with status created
+2025-09-23 08:32:34,888 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:44,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:47,036 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:32:54,278 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:04,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:14,884 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:24,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:34,884 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:44,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:33:54,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:34:04,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:35:04,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:36:04,891 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:36:57,236 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 08:36:57,264 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 08:36:57,265 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 08:37:04,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:06,824 - app.services.mongodb_service - INFO - Request progress created for request b80809d1-b8ba-4f09-bb6a-b448304b9b54 with status created
+2025-09-23 08:37:11,840 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:21,881 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:26,990 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:31,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:41,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:37:51,888 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:38:01,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:38:11,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:38:21,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:39:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:40:04,884 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:41:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:42:04,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:43:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:44:04,872 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:45:04,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:46:04,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:47:04,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:48:04,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:49:04,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:50:04,865 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:51:04,877 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:01,763 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:03,762 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:13,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:23,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:33,868 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:43,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:52:53,888 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:53:03,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:53:13,881 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:54:04,868 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:55:04,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:56:04,874 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:57:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:58:04,874 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 08:59:04,873 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:00:04,872 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:01:04,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:02:04,889 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:03:04,872 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:04:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:05:04,884 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:06:04,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:07:04,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:08:04,869 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:09:04,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:10:04,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:10:39,237 - app.main - INFO - Shutting down application...
+2025-09-23 09:15:00,719 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 09:15:00,763 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 09:15:00,764 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 09:15:02,459 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:03,789 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:08,112 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:18,141 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:28,138 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:38,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:48,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:15:58,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:08,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:18,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:28,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:38,870 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:38,928 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:48,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:16:58,890 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:17:01,240 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:17:08,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:17:18,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:17:28,884 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:18:04,881 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:19:04,874 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:19:42,936 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 09:19:43,258 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 09:19:43,258 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 09:20:04,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:21:04,866 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:21:39,073 - app.services.mongodb_service - INFO - Request progress created for request c85db8b6-e5ef-4c4c-8880-d2992ca8690b with status created
+2025-09-23 09:21:51,855 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:21:58,126 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:08,133 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:18,137 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:28,135 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:38,886 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:41,632 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:48,876 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:22:58,864 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:08,136 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:18,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:28,888 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:38,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:48,887 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:23:58,875 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:24:08,886 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:26:09,627 - app.main - INFO - Starting Producer-Consumer Batch API v1.0.0
+2025-09-23 09:26:09,701 - app.services.mongodb_service - INFO - MongoDB indexes created successfully
+2025-09-23 09:26:09,702 - app.services.mongodb_service - INFO - Connected to MongoDB: mongodb://mongo:27017/?replicaSet=rs0
+2025-09-23 09:26:12,267 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:26:22,885 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:26:32,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:26:42,882 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:26:52,883 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:02,267 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:12,878 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:21,071 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:23,863 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:33,881 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:43,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:27:53,886 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:00,772 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:03,872 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:13,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:23,870 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:33,879 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:43,871 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:28:53,880 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
+2025-09-23 09:29:03,877 - app.api.sequential_batch - INFO - Getting all request progress data for dashboard
