@@ -227,7 +227,7 @@ async def create_browser_session(session_id: str, display_num: int, vnc_port: in
                     log.info("Chrome args: %s", profile.args)
                     log.info("DISPLAY environment: %s", os.environ.get("DISPLAY"))
                     
-                    session:BrowserSession = BrowserSession(browser_profile=profile)
+                    session:BrowserSession = BrowserSession(browser_profile=profile,keep_alive=True)
 
                     # Start the browser session and connect
                     await session.start()

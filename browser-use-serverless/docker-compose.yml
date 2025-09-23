@@ -10,6 +10,7 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - REDIS_STREAM=browser_use_logs
       - REDIS_STREAM_MAXLEN="1000"
+      - HITL_WEBHOOK_URL=http://host.docker.internal:5678/webhook/hitl
     depends_on:
       - redis
     networks:

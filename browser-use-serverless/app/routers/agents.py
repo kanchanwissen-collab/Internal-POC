@@ -229,7 +229,7 @@ async def create_agent(body: AgentCreateRequest):
 
         # --- build agent (synchronous run; this call will block) ---
         agent: Agent = Agent(
-            task=task,
+            task=task+ f" [session_id: {session_id}, request_id: {request_id}]",
             task_id=session_id,
             browser_session=browser_session,
             llm=ChatGoogle(temperature=0.3, model="gemini-2.5-pro", api_key=api_key),
@@ -328,6 +328,7 @@ Rules during form filling:
                 print(f"🚀 [Agent] Starting background task for request_id: {request_id}")
                 
                 result = await agent.run()
+                
                 
                 print(f"✅ [Agent] Task completed for request_id: {request_id}")
                 logging.getLogger("browser_use.agent.service").info(f"[Agent] Task completed: {result}")
