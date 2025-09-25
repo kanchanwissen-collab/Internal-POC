@@ -328,6 +328,22 @@ Rules during form filling:
                 print(f"🚀 [Agent] Starting background task for request_id: {request_id}")
                 
                 result = await agent.run()
+
+                ## call the n8n webhook for notification that agent has completed the task
+                import httpx
+                from dotenv import load_dotenv
+                load_dotenv()
+                COMP_WEBHOOK_URL = os.getenv("COMP_WEBHOOK_URL", "")
+                if COMP_WEBHOOK_URL:
+                    async with httpx.AsyncClient() as client:
+                        resp = await client.post(
+                            COMP_WEBHOOK_URL,
+                            json={"request_id": request_id, "session_id": session_id}
+                        )
+                        if resp.status_code == 200:
+                            print(f"✅ [Agent] Completion webhook called successfully for request_id: {request_id}")
+                        else:
+                            print(f"❌ [Agent] Completion webhook call failed for request_id: {request_id}: {resp.status_code} {resp.text}")
                 
                 
                 print(f"✅ [Agent] Task completed for request_id: {request_id}")
