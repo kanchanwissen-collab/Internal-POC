@@ -81,7 +81,7 @@ def start_vnc_session(session_id: str, display_num: int, port: int) -> str:
     vnc_proc = subprocess.Popen(
         [
             "x11vnc", "-display", display, "-nopw", "-forever",
-            "-rfbport", str(port), "-clip", "1600x1200", "-xrandr", "resize"
+            "-rfbport", str(port), "-clip", "1600x1200", "-xrandr", "resize","--shared"
         ]
     )
     procs.append(vnc_proc)
